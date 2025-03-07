@@ -4,5 +4,14 @@
     "Update your account's profile information and email address.": "Atualize as informações de perfil e endereço de e-mail.",
     "Name": "Nome",
     "Save": "Salvar",
-    "Log Out": "Sair"
+    "Log Out": "Sair",
+    "Surname": "Apelido",
+    "Address": "Endereço",
+    "Neighborhood": "Bairro",
+    "Associate": "Associado",
+    "Associates": "Associados",
+    "Associates List": "Lista de Associados",
+    "Contact": "Contato",
+    "Family Contact": "Contato do Familiar",
+    "Forgot your password?": "Esqueceu sua senha?"
 }
