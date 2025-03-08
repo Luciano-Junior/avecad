@@ -8,21 +8,23 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class AssociateController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        return view('associate.index');
+        $associates = Associate::all();
+        return view('associate.index')->with('associates',$associates);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view('associate.crud');
     }
@@ -63,9 +65,15 @@ class AssociateController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
-        //
+        try {
+            $associate = Associate::find($id);
+
+            return view('associate.crud')->with('associate', $associate);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
     /**
