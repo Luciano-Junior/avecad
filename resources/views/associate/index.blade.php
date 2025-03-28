@@ -44,6 +44,11 @@
                                 </div>
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                <div class="flex items-center">
+                                    Status
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 <span class="sr-only">Edit</span>
                             </th>
                         </tr>
@@ -65,6 +70,9 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     {{$associate->family_contact_formatado}}
+                                </td>
+                                <td class="px-6 py-4 {{$associate->active ? "text-green-500": "text-red-500"}}">
+                                    {{$associate->active ? "Ativo": "Inativo"}}
                                 </td>
                                 <td class="px-6 py-4 text-right flex gap-2">
                                     <x-nav-link-table :active="true" :href="route('associate.edit', $associate->id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" title="Editar">

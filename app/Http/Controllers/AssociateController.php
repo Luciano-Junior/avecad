@@ -46,6 +46,7 @@ class AssociateController extends Controller
                 'admission_date' => $request->associate_admission_date,
                 'contact' => $request->associate_contact,
                 'family_contact' => $request->associate_family_contact,
+                'active' => $request->associate_active,
             ]);
 
             return Redirect::route('associate.index')->with('status', 'associate-updated');
@@ -79,9 +80,18 @@ class AssociateController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AssociateStoreRequest $request, string $id): RedirectResponse
     {
-        //
+        try {
+            $associate = Associate::findOrFail($id);
+
+            $associate->update($request->validatedData());
+            $associate->save();
+
+            return Redirect::route('associate.index')->with('success', 'Registro atualizado com sucesso!');
+        } catch (Exception $e) {
+            dd($e);
+        }
     }
 
     /**

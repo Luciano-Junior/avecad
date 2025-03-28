@@ -21,6 +21,7 @@ class Associate extends Model
         'admission_date',
         'contact',
         'family_contact',
+        'active',
     ];
 
      /**

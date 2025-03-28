@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view('associate.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [AssociateController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -22,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/associates/register', [AssociateController::class, 'create'])->name('associate.register');
     Route::post('/associates', [AssociateController::class, 'store'])->name('associate.create');
     Route::get('/associates/edit/{id}', [AssociateController::class, 'edit'])->name('associate.edit');
+    Route::put('/associates/update/{id}', [AssociateController::class, 'update'])->name('associate.update');
 });
 
 require __DIR__.'/auth.php';

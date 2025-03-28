@@ -11,6 +11,9 @@
                 @case("associate.register")
                     @include('associate.partials.store-associate-form')
                     @break
+                @case("associate.edit")
+                    @include('associate.partials.edit-associate-form')
+                    @break
             
                 @default
                     
