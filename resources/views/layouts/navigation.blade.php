@@ -19,6 +19,9 @@
                         {{ __('Associates') }}
                     </x-nav-link>
                     <x-nav-link :href="route('associate.index')" :active="request()->routeIs('finance')">
+                        {{ __('Mensalidades') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('associate.index')" :active="request()->routeIs('finance')">
                         {{ __('Financeiro') }}
                     </x-nav-link>
                 </div>

@@ -15,9 +15,9 @@ class AssociateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index($perPage = 10): View
     {
-        $associates = Associate::all();
+        $associates = Associate::paginate($perPage);
         return view('associate.index')->with('associates',$associates);
     }
 
@@ -58,9 +58,9 @@ class AssociateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Associate $associate): View
     {
-        //
+        return view('associate.show')->with('associate', $associate);
     }
 
     /**

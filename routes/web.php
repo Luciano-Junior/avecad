@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/associates', [AssociateController::class, 'store'])->name('associate.create');
     Route::get('/associates/edit/{id}', [AssociateController::class, 'edit'])->name('associate.edit');
     Route::put('/associates/update/{id}', [AssociateController::class, 'update'])->name('associate.update');
+    Route::get('/associates/view/{associate}', [AssociateController::class, 'show'])->name('associate.show');
 });
 
 require __DIR__.'/auth.php';
