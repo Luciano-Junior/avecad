@@ -33,4 +33,34 @@ Alpine.data('phoneMask', (initialValue) => ({
     }
 }));
 
+Alpine.data('currencyMask', (initialValue) => ({
+    amount: initialValue,
+    formatCurrency() {
+        let value = this.amount.replace(/\D/g, ''); // Remove tudo que não for número
+
+        // Se não tiver nada digitado, zera
+        if (value.length === 0) {
+            this.amount = '';
+            return;
+        }
+
+        // Garante ao menos 3 dígitos: 1 → 0,01 | 12 → 0,12 | 123 → 1,23
+        if (value.length === 1) value = '00' + value;
+        else if (value.length === 2) value = '0' + value;
+
+        // Separa os centavos
+        const cents = value.slice(-2);
+        let reais = value.slice(0, -2);
+
+        // Remove zeros à esquerda em reais (evita "0.010")
+        reais = reais.replace(/^0+/, '') || '0';
+
+        // Adiciona separadores de milhar
+        reais = reais.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+        // Monta a string final
+        this.amount = `${reais},${cents}`;
+    }
+}));
+
 Alpine.start();

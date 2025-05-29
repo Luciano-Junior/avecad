@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AssociateController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/associates/edit/{id}', [AssociateController::class, 'edit'])->name('associate.edit');
     Route::put('/associates/update/{id}', [AssociateController::class, 'update'])->name('associate.update');
     Route::get('/associates/view/{associate}', [AssociateController::class, 'show'])->name('associate.show');
+
+    //Accounts
+    Route::get('/accounts', [AccountController::class, 'index'])->name('account.index');
+    Route::get('/accounts/register', [AccountController::class, 'create'])->name('account.register');
+    Route::post('/accounts', [AccountController::class, 'store'])->name('account.create');
+    Route::get('/accounts/edit/{id}', [AccountController::class, 'edit'])->name('account.edit');
+    Route::put('/accounts/update/{id}', [AccountController::class, 'update'])->name('account.update');
 });
 
 require __DIR__.'/auth.php';

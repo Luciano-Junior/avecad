@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Associate extends Model
 {
@@ -70,5 +71,13 @@ class Associate extends Model
         } 
 
         return $this->family_contact; // Retorna o original se não for compatível
+    }
+
+    public function accounts():HasMany {
+        return $this->hasMany(Account::class);
+    }
+
+    public function mounthlyFees(): HasMany {
+        return $this->hasMany(Account::class)->where("category_id",1);
     }
 }
