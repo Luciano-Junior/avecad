@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AssociateController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -30,6 +31,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/accounts', [AccountController::class, 'store'])->name('account.create');
     Route::get('/accounts/edit/{id}', [AccountController::class, 'edit'])->name('account.edit');
     Route::put('/accounts/update/{id}', [AccountController::class, 'update'])->name('account.update');
+
+    //Transactions
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transaction.index');
+    Route::get('/transactions/register', [TransactionController::class, 'create'])->name('transaction.register');
+    Route::post('/transactions', [TransactionController::class, 'store'])->name('transaction.create');
+    Route::get('/transactions/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
+    Route::put('/transactions/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
 });
 
 require __DIR__.'/auth.php';
