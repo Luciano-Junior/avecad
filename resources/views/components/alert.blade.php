@@ -25,7 +25,15 @@
             // Evento para mensagens vindas de Livewire
             window.addEventListener('show-message', event => {
                 const detail = Array.isArray(event.detail) ? event.detail[0] : event.detail;
-                this.message = (detail.type === 'success' ? '✅ ' : '✖') + detail.message;
+                let icon = '';
+                if(detail.type === 'success'){
+                    icon = '✅ ';
+                }else if(detail.type === 'info' || detail.type === 'notify'){
+                    icon = '❕ ';
+                }else{
+                    icon = '✖ ';
+                }
+                this.message = icon + detail.message;
                 this.type = detail.type;
                 this.show = true;
                 setTimeout(() => this.show = false, 4000);
@@ -36,7 +44,8 @@
     x-transition
     :class="{
         'bg-green-500': type === 'success',
-        'bg-red-500': type === 'error'
+        'bg-red-500': type === 'error',
+        'bg-blue-400': type === 'info'
     }"
     class="fixed bottom-5 right-5 text-white px-4 py-3 rounded shadow-lg z-50"
 >

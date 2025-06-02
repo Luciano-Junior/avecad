@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCategoriesRequest;
-use App\Http\Requests\UpdateCategoriesRequest;
-use App\Models\Category;
+use App\Models\Configuration;
+use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class ConfigurationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +26,7 @@ class CategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoriesRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,7 +34,7 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $categories)
+    public function show(Configuration $configuration)
     {
         //
     }
@@ -43,7 +42,7 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $categories)
+    public function edit(Configuration $configuration)
     {
         //
     }
@@ -51,7 +50,7 @@ class CategoriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoriesRequest $request, Category $categories)
+    public function update(Request $request, Configuration $configuration)
     {
         //
     }
@@ -59,7 +58,7 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $categories)
+    public function destroy(Configuration $configuration)
     {
         //
     }

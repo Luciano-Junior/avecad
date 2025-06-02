@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AccountRequest;
 use App\Models\Account;
 use App\Models\Associate;
-use App\Models\Categorie;
+use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,7 +28,7 @@ class AccountController extends Controller
     public function create(): View
     {
         $associates = Associate::all();
-        $categories = Categorie::all();
+        $categories = Category::all();
         return view('account.crud')->with(['associates'=>$associates, 'categories'=>$categories]);
     }
 
@@ -60,7 +60,7 @@ class AccountController extends Controller
     {
         try {
             $account = Account::find($id);
-            $categories = Categorie::all();
+            $categories = Category::all();
             $associates = Associate::all();
             return view('account.crud')->with([
                 'account'=>$account, 

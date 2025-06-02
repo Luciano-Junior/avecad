@@ -30,7 +30,7 @@ class Account extends Model
     }
 
     public function category():BelongsTo{
-        return $this->belongsTo(Categorie::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function getDueDateFormatAttribute()

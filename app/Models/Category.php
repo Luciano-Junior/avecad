@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categorie extends Model
+class Category extends Model
 {
     protected $fillable = [
         "name",
         "description"
     ];
+
+    public function getIdByName($name){
+        return Category::where('name',$name)->value('id');
+    }
 }

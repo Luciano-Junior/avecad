@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Associate;
 use App\Services\MonthlyFeesService;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -12,20 +13,26 @@ class AssociateList extends Component
 {
     use WithPagination;
 
-    public $optionsPerPage = [2,5,10,15,25,50,100];
-    public $perPage = 10;
+    public $optionsPerPage = [5,10,15,25,50,100];
+    public $perPage;
     public Associate $selectedAssociate;
     public string $search = '';
     public int $quantity = 1;
+    public String $start_month = '';
     public array $selectedAssociates = [];
 
     protected $updatesQueryString = ['search']; // mantém o valor ao trocar de página
 
-    public function updatedSelectedAssociates()
+    public function SelectedAssociates()
     {
         // Exemplo: log($this->selectedAssociates);
     }
 
+    public function mount()
+    {
+        $this->start_month = now()->format('Y-m');
+        $this->perPage = 10;
+    }
 
     public function updatingSearch()
     {
@@ -34,13 +41,15 @@ class AssociateList extends Component
 
     public function generateMonthlyFees(){
         $service = new MonthlyFeesService();
-        if($service->generate($this->quantity)){
-            $this->dispatch('close-modal', 'generate-monthlyfees');
-            $this->dispatch('show-message', [
-                'type' => 'success',
-                'message' => 'Mensalidade gerada com sucesso!',
-            ]);
-        }
+        $response = $service->generate($this->quantity, $this->start_month, $this->selectedAssociate);
+
+        $this->dispatch('close-modal', 'generate-monthlyfees');
+
+        $this->dispatch('show-message', [
+            'type' => $response['status'],
+            'message' => $response['message'],
+        ]);
+
     }
 
 

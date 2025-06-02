@@ -15,7 +15,7 @@
             </div>
 
         </div>
-        
+        {{ $start_month }}
 
         <div class="grid grid-cols-3 gap-2 pt-4">
             <div>
@@ -25,6 +25,10 @@
                     <option value="6">6 Mensalidades</option>
                     <option value="12">12 Mensalidades</option>
                 </x-select>
+            </div>
+            <div>
+                <x-input-label for="start_date" :value="__('Mês de Início').'*'" title="O vencimento seguirá o dia padrão configurado"/>
+                <x-text-input id="start_date" name="start_date" type="month" class="mt-1 block w-full" wire:model.live="start_month" value="{{ $start_month }}" />
             </div>
         </div>
         
