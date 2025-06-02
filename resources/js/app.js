@@ -1,10 +1,10 @@
 import './bootstrap';
 
-import Alpine from 'alpinejs';
+// import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
-Alpine.data('cpfMask', (initialValue) => ({
+window.Alpine.data('cpfMask', (initialValue) => ({
     cpf: initialValue,
     formatCPF() {
         let value = this.cpf.replace(/\D/g, ''); // Remove não numéricos
@@ -19,7 +19,7 @@ Alpine.data('cpfMask', (initialValue) => ({
     }
 }));
 
-Alpine.data('phoneMask', (initialValue) => ({
+window.Alpine.data('phoneMask', (initialValue) => ({
     phone: initialValue,
     formatPhone() {
         let value = this.phone.replace(/\D/g, ''); // Remove não numéricos
@@ -33,7 +33,7 @@ Alpine.data('phoneMask', (initialValue) => ({
     }
 }));
 
-Alpine.data('currencyMask', (initialValue) => ({
+window.Alpine.data('currencyMask', (initialValue) => ({
     amount: initialValue,
     formatCurrency() {
         let value = this.amount.replace(/\D/g, ''); // Remove tudo que não for número
@@ -63,4 +63,4 @@ Alpine.data('currencyMask', (initialValue) => ({
     }
 }));
 
-Alpine.start();
+// Alpine.start();
