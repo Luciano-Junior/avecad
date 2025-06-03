@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TransactionRequest;
 use App\Models\CashBox;
 use App\Models\Categorie;
+use App\Models\Category;
 use App\Models\Transaction;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $categories = Categorie::all();
+        $categories = Category::all();
         return view('transaction.crud')->with(['categories'=>$categories]);
     }
 
@@ -78,7 +79,7 @@ class TransactionController extends Controller
     public function edit(string $id)
     {
         $transaction = Transaction::find($id);
-        $categories = Categorie::all();
+        $categories = Category::all();
         return view('transaction.crud')->with(['categories'=>$categories, "transaction"=>$transaction]);
     }
 

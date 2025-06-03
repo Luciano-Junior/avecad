@@ -18,8 +18,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accounts = Account::paginate(10);
-        return view('account.index')->with('accounts',$accounts);
+        return view('account.index');
     }
 
     /**

@@ -1,13 +1,5 @@
 <div>
     <div class="flex flex-col gap-3 sm:flex-row sm:items-center justify-between">
-        <div class="flex flex-row items-center gap-1">
-            Por página:
-            <select wire:model.live="perPage" class="h-9 shadow-theme-xs text-sm rounded-lg">
-                @foreach ($optionsPerPage as $option)
-                    <option value="{{ $option }}">{{$option}}</option>
-                @endforeach
-            </select>
-        </div>
         <div class="relative">
             <span class="absolute -translate-y-1/2 pointer-events-none top-1/2 left-4">
                 <svg class="fill-gray-500 dark:fill-gray-400" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -135,15 +127,21 @@
                 @endforeach
             </tbody>
             <tfoot>
-                
                 <tr>
-                    <th colspan="8">
+                    <th colspan="8" class="justify-center">
                         {{ $associates->links() }}
                     </th>
                 </tr>
             </tfoot>
-            
         </table>
+        <div class="flex flex-row items-center gap-1 pl-2 pt-2">
+            Por página:
+            <select wire:model.live="perPage" class="h-9 shadow-theme-xs text-sm rounded-lg">
+                @foreach ($optionsPerPage as $option)
+                    <option value="{{ $option }}">{{$option}}</option>
+                @endforeach
+            </select>
+        </div>
         {{-- Recurso adicional: quantidade selecionada + botões --}}
         <div class="m-4 px-6">
             @if(count($selectedAssociates) > 0)
