@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Configuration;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class ConfigurationController extends Controller
@@ -10,9 +11,9 @@ class ConfigurationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        return view('configuration.index');
     }
 
     /**

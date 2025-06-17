@@ -7,14 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Configuration extends Model
 {
     protected $fillable = [
-        'associate_id',
-        'user_id',
-        'category_id',
-        'description',
-        'type',
-        'amount',
-        'due_date',
-        'status',
+        'key',
+        'value',
     ];
 
     public function getAmountMonthlyFee(){

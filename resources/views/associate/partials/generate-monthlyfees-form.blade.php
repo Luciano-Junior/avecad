@@ -15,7 +15,6 @@
             </div>
 
         </div>
-        {{ $start_month }}
 
         <div class="grid grid-cols-3 gap-2 pt-4">
             <div>

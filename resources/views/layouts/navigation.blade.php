@@ -18,9 +18,6 @@
                     <x-nav-link :href="route('associate.index')" :active="request()->routeIs('associate.index') || request()->routeIs('dashboard')">
                         {{ __('Associates') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('associate.index')" :active="request()->routeIs('finance')">
-                        {{ __('Mensalidades') }}
-                    </x-nav-link>
                     <x-nav-dropdown :active="request()->routeIs('finance*')">
                         Financeiro
                         @slot('dropdown')
@@ -33,7 +30,7 @@
                             {{-- <a href="{{ route('account.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 Relatórios
                             </a> --}}
-                            <a href="{{ route('account.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <a href="{{ route('configuration.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 Configurações
                             </a>
                         @endslot

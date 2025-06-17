@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AssociateController;
+use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/transactions', [TransactionController::class, 'store'])->name('transaction.create');
     Route::get('/transactions/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
     Route::put('/transactions/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
+
+    //Configurations
+    Route::get('/configurations', [ConfigurationController::class, 'index'])->name('configuration.index');
+    Route::post('/configurations/register', [ConfigurationController::class, 'create'])->name('configuration.register');
 });
 
 require __DIR__.'/auth.php';

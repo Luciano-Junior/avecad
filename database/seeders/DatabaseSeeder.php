@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             CategorieSeeder::class,
             CashboxSeeder::class,
             ConfigurationSeeder::class,
+            UserSeeder::class
         ]);
         
     }
