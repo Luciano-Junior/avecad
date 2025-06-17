@@ -20,5 +20,12 @@
     "Amount": "Valor",
     "Type": "Tipo",
     "Category": "Categoria",
-    "Description": "Descrição"
+    "Description": "Descrição",
+    "Profile Information": "Informações de Perfil",
+    "Update your account's profile information and email address.":"Atualize as informações de perfil e endereço de e-mail.",
+    "Update Password":"Atualizar Senha",
+    "Ensure your account is using a long, random password to stay secure.":"Certifique-se de que sua conta esteja usando uma senha longa e aleatória para permanecer segura.",
+    "Current Password":"Senha atual",
+    "New Password":"Nova senha",
+    "Confirm Password": "Confirmação de senha"
 }

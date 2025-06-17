@@ -19,9 +19,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $cashboxAmount = CashBox::findOrFail(1);
-        $transactions = Transaction::paginate(10);
-        return view('transaction.index')->with(['transactions'=>$transactions, 'cashboxAmount'=>$cashboxAmount]);
+        
+        return view('transaction.index');
     }
 
     /**
