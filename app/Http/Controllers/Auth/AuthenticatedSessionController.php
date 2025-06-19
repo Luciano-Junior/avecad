@@ -28,6 +28,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        // Verifica se o usuário está ativo
+        if (!auth()->user()->active) {
+            auth()->logout();
+            return back()->withErrors([
+                'email' => 'Seu cadastro está inativo.',
+            ]);
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

@@ -4,9 +4,12 @@ namespace App\Livewire;
 
 use App\Models\Configuration;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ConfigurationList extends Component
 {
+    use WithPagination;
+
     public $optionsPerPage = [5,10,15,25,50,100];
     public $perPage;
     public string $search = '';

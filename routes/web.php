@@ -5,6 +5,7 @@ use App\Http\Controllers\AssociateController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -43,6 +44,15 @@ Route::middleware('auth')->group(function () {
     //Configurations
     Route::get('/configurations', [ConfigurationController::class, 'index'])->name('configuration.index');
     Route::post('/configurations/register', [ConfigurationController::class, 'create'])->name('configuration.register');
+
+    //Users
+    Route::get('/users', [UserController::class, 'index'])->name('user.index');
+    Route::post('/user/register', [UserController::class, 'create'])->name('user.register');
+    Route::get('/user/view/{user}', [UserController::class, 'show'])->name('user.show');
+    Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+    Route::get('/user/register', [UserController::class, 'create'])->name('user.register');
+    Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::post('/users', [UserController::class, 'store'])->name('user.store');
 });
 
 require __DIR__.'/auth.php';

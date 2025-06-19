@@ -127,7 +127,6 @@ class TransactionController extends Controller
             return Redirect::route('transaction.index')->with('success', 'Registro atualizado com sucesso!');
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
             return back()->with('error', 'Houve um erro ao atualizar movimentação. '.$e->getMessage());
         }
     }
