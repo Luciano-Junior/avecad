@@ -18,7 +18,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: mbstring, bcmath, intl, pdo, pdo_mysql, fileinfo, zip
+          extensions: mbstring, bcmath, intl, pdo, pdo_sqlite, fileinfo, zip
           coverage: none
 
       - name: 🏗️ Instalar Node.js 22
@@ -35,8 +35,17 @@ jobs:
       - name: ⚙️ Build frontend (se usa Vite)
         run: npm run build
 
+      - name: 📝 Criar .env
+        run: cp .env.example .env
+
       - name: 🔐 Gerar chave do Laravel
         run: php artisan key:generate
+
+      - name: 📂 Criar banco SQLite
+        run: mkdir -p database && type nul > database/database.sqlite
+
+      - name: Run migrations
+        run: php artisan migrate --force
 
       - name: 🏗️ Build NativePHP Windows
         run: php artisan native:build --platform=win32
