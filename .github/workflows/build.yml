@@ -36,13 +36,17 @@ jobs:
         run: npm run build
 
       - name: 📝 Criar .env
-        run: cp .env.example .env
+        run: |
+          echo "APP_NAME=Laravel" >> .env
+          echo "APP_ENV=production" >> .env
+          echo "APP_KEY=" >> .env
+          echo "APP_DEBUG=false" >> .env
+          echo "APP_URL=http://localhost" >> .env
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DB_DATABASE=./database/database.sqlite" >> .env
 
       - name: 🔐 Gerar chave do Laravel
         run: php artisan key:generate
-
-      - name: 📂 Criar banco SQLite
-        run: mkdir -p database && type nul > database/database.sqlite
 
       - name: Run migrations
         run: php artisan migrate --force
