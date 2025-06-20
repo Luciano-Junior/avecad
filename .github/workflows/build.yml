@@ -35,20 +35,20 @@ jobs:
       - name: ⚙️ Build frontend (se usa Vite)
         run: npm run build
 
-      # - name: 📝 Criar .env.native
-      #   run: |
-      #     echo "APP_NAME='Avecad Gestão'" >> .env.native
-      #     echo "APP_ENV=production" >> .env.native
-      #     echo "APP_KEY=" >> .env.native
-      #     echo "APP_DEBUG=false" >> .env.native
-      #     echo "APP_URL=http://localhost" >> .env.native
-      #     echo "DB_CONNECTION=pgsql" >> .env.native
-      #     echo "DB_DATABASE=postgres" >> .env.native
-      #     echo "DB_HOST=db.ipkklhzyzuqtvgatewtl.supabase.co" >> .env.native
-      #     echo "DB_PORT=5432" >> .env.native
-      #     echo "DB_USERNAME=postgres" >> .env.native
-      #     echo "DB_PASSWORD='EJ!5n8z#eLeGZ6$'" >> .env.native
-      #     echo "DB_COLLATION=utf8mb4_unicode_ci" >> .env.native
+      - name: 📝 Criar .env.native
+        run: |
+          echo "APP_NAME='Avecad Gestão'" >> .env.native
+          echo "APP_ENV=production" >> .env.native
+          echo "APP_KEY=" >> .env.native
+          echo "APP_DEBUG=false" >> .env.native
+          echo "APP_URL=http://localhost" >> .env.native
+          echo "DB_CONNECTION=pgsql" >> .env.native
+          echo "DB_DATABASE=postgres" >> .env.native
+          echo "DB_HOST=aws-0-us-east-2.pooler.supabase.com" >> .env.native
+          echo "DB_PORT=6543" >> .env.native
+          echo "DB_USERNAME=postgres.ipkklhzyzuqtvgatewtl" >> .env.native
+          echo "DB_PASSWORD='EJ!5n8z#eLeGZ6$'" >> .env.native
+          echo "DB_COLLATION=utf8mb4_unicode_ci" >> .env.native
 
       - name: 🔐 Gerar chave do Laravel
         run: php artisan key:generate
