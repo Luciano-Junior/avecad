@@ -18,7 +18,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: mbstring, bcmath, intl, pdo, pdo_sqlite, fileinfo, zip
+          extensions: mbstring, bcmath, intl, pdo, pdo_sqlite, fileinfo, zip, pdo_pgsql, pgsql
           coverage: none
 
       - name: 🏗️ Instalar Node.js 22
@@ -37,19 +37,24 @@ jobs:
 
       - name: 📝 Criar .env
         run: |
-          echo "APP_NAME=Laravel" >> .env
+          echo "APP_NAME='Avecad Gestão'" >> .env
           echo "APP_ENV=production" >> .env
           echo "APP_KEY=" >> .env
           echo "APP_DEBUG=false" >> .env
           echo "APP_URL=http://localhost" >> .env
-          echo "DB_CONNECTION=sqlite" >> .env
-          echo "DB_DATABASE=./database/database.sqlite" >> .env
+          echo "DB_CONNECTION=pgsql" >> .env
+          echo "DB_DATABASE=postgres" >> .env
+          echo "DB_HOST=aws-0-us-east-2.pooler.supabase.com" >> .env
+          echo "DB_PORT=5432" >> .env
+          echo "DB_USERNAME=postgres.ipkklhzyzuqtvgatewtl" >> .env
+          echo "DB_PASSWORD='EJ!5n8z#eLeGZ6$'" >> .env
+          echo "DB_COLLATION=utf8mb4_unicode_ci" >> .env
 
       - name: 🔐 Gerar chave do Laravel
         run: php artisan key:generate
 
       - name: Run migrations
-        run: php artisan migrate --force
+        run: php artisan migrate --force --seed
 
       - name: 🏗️ Build NativePHP Windows
         run: php artisan native:build win
@@ -57,7 +62,7 @@ jobs:
       - name: 📤 Upload build completo
         uses: actions/upload-artifact@v4
         with:
-          name: laravel-app-windows
+          name: avecad-app-windows
           path: dist/*
       - name: 📦 Compactar build
         run: |
