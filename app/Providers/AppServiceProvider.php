@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Dotenv\Dotenv;
 use Illuminate\Support\ServiceProvider;
-use Native\Laravel\Facades\NativePHP;
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Native\Laravel\Facades\Window;
 use Native\Laravel\Contracts\ProvidesPhpIni;
+use Native\Laravel\Facades\NativePHP;
 
 class NativeAppServiceProvider implements ProvidesPhpIni
 {
@@ -13,6 +14,9 @@ class NativeAppServiceProvider implements ProvidesPhpIni
      */
     public function boot(): void
     {
+        NativePHP::serve([
+            'database' => false, // 🔥 Desativa a conexão automática com SQLite
+        ]);
         Window::open()
             ->maximized();
     }
