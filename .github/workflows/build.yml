@@ -1,0 +1,51 @@
+name: Build Executável Laravel NativePHP para Windows
+
+on:
+  push:
+    branches: 
+      - main  # Ou qualquer branch desejado
+  workflow_dispatch:  # Permite rodar manualmente também
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: 📥 Checkout do código
+        uses: actions/checkout@v4
+
+      - name: 🧰 Instalar PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, bcmath, intl, pdo, pdo_mysql
+          coverage: none
+
+      - name: 🏗️ Instalar Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 💾 Instalar dependências PHP
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: 💾 Instalar dependências Node.js
+        run: npm install
+
+      - name: ⚙️ Build front (se usa Vite)
+        run: npm run build
+
+      - name: 🔐 Gerar chave do Laravel
+        run: php artisan key:generate
+
+      - name: 🗂️ Rodar migrations (se necessário)
+        run: php artisan migrate --force
+
+      - name: 🏗️ Build NativePHP Windows
+        run: php artisan native:build --platform=win32
+
+      - name: 📤 Upload executável como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: laravel-app-windows
+          path: native/builds/win32/**/*.exe
