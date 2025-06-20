@@ -52,7 +52,7 @@ jobs:
         run: php artisan migrate --force
 
       - name: 🏗️ Build NativePHP Windows
-        run: php artisan native:build --platform=win32
+        run: php artisan native:build win
 
       - name: 📤 Upload executável como artefato
         uses: actions/upload-artifact@v4
