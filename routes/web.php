@@ -6,11 +6,16 @@ use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('/check-db', function () {
+    return DB::connection()->getPdo()->query('select version()')->fetch();
+});
+
 
 Route::get('/', [AssociateController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
