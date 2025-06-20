@@ -54,7 +54,7 @@ jobs:
         run: php artisan key:generate
 
       - name: Run migrations
-        run: php artisan migrate --force --seed
+        run: php artisan migrate --force
 
       - name: 🏗️ Build NativePHP Windows
         run: php artisan native:build win
