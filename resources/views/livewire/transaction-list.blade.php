@@ -1,5 +1,5 @@
 <div>
-    <div class="grid grid-cols-3 gap-4 sm:grid-cols-3 md:gap-6">
+    <div class="grid lg:grid-cols-3 lg:gap-4 sm:grid-cols-2 md:gap-6">
         <!-- Metric Item Start -->
         <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6 mb-2">
             <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800">
