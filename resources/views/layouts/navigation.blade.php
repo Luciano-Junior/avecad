@@ -90,8 +90,28 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            {{-- <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link> --}}
+            <x-responsive-nav-link :href="route('associate.index')" :active="request()->routeIs('associate.index') || request()->routeIs('dashboard')">
+                {{ __('Associates') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-dropdown :active="request()->routeIs('account.index') || request()->routeIs('transaction.index') || request()->routeIs('configuration.index')">
+                    Financeiro
+                    @slot('dropdown')
+                        <x-responsive-nav-link :href="route('account.index')" :active="request()->routeIs('account.index')">
+                            {{ __('Accounts') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('transaction.index')" :active="request()->routeIs('transaction.index')">
+                            Movimentações
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('configuration.index')" :active="request()->routeIs('configuration.index')">
+                            Configurações
+                        </x-responsive-nav-link>
+                    @endslot
+                </x-responsive-nav-dropdown>
+            <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                {{ __('Usuários') }}
             </x-responsive-nav-link>
         </div>
 
