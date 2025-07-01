@@ -40,7 +40,7 @@ class AccountController extends Controller
             Account::create($request->validated());
             return Redirect::route('account.index')->with('success', 'Conta criada com sucesso!');
         } catch (\Exception $ex) {
-            dd($ex->getMessage());
+            return back()->with('error', 'Houve um erro ao cadastrar conta. '.$ex->getMessage());
         }
     }
 
@@ -55,7 +55,7 @@ class AccountController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): View
+    public function edit(string $id)
     {
         try {
             $account = Account::find($id);
@@ -67,7 +67,7 @@ class AccountController extends Controller
                 'associates'=>$associates
             ]);
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            return back()->with('error', 'Houve um erro ao buscar conta. '.$e->getMessage());
         }
     }
 
@@ -84,7 +84,7 @@ class AccountController extends Controller
 
             return Redirect::route('account.index')->with('success', 'Registro atualizado com sucesso!');
         } catch (\Exception $e) {
-            dd($e);
+            return back()->with('error', 'Houve um erro ao atualizar conta. '.$e->getMessage());
         }
     }
 

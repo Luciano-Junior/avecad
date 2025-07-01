@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AssociateController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
@@ -58,6 +59,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/register', [UserController::class, 'create'])->name('user.register');
     Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
     Route::post('/users', [UserController::class, 'store'])->name('user.store');
+
+    //Categories
+    Route::get('/categories', [CategoriesController::class, 'index'])->name('category.index');
+    Route::get('/categories/register', [CategoriesController::class, 'create'])->name('category.register');
+    Route::post('/categories', [CategoriesController::class, 'store'])->name('category.create');
+    Route::get('/categories/edit/{id}', [CategoriesController::class, 'show'])->name('category.edit');
+    Route::put('/categories/update/{id}', [CategoriesController::class, 'update'])->name('category.update');
+    Route::delete('/categories/delete/{id}', [CategoriesController::class, 'destroy'])->name('category.delete');
 });
 
 require __DIR__.'/auth.php';

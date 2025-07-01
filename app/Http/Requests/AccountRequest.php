@@ -32,6 +32,12 @@ class AccountRequest extends FormRequest
         ];
     }
 
+    public function prepareForValidation(){
+        $this->merge([
+            'amount' => str_replace(',', '.', str_replace('.', '', $this->amount)), // Remove pontos e troca vírgula por ponto
+        ]);
+    }
+
     public function messages(): array
     {
         return [
