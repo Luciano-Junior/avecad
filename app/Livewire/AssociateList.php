@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Associate;
 use App\Services\MonthlyFeesService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -20,6 +21,10 @@ class AssociateList extends Component
     public int $quantity = 1;
     public String $start_month = '';
     public array $selectedAssociates = [];
+    public $showFilters = false;
+    public $filterStatus;
+    public ?string $start_date = null;
+    public ?string $end_date = null;
 
     protected $updatesQueryString = ['search']; // mantém o valor ao trocar de página
 
@@ -52,7 +57,6 @@ class AssociateList extends Component
 
     }
 
-
     public function viewGenerateMonthlyFees(Associate $associate){
         $this->selectedAssociate = $associate;
         $this->dispatch('open-modal', 'generate-monthlyfees');
@@ -60,11 +64,63 @@ class AssociateList extends Component
 
     public function render()
     {
-        $associates = Associate::where('name', 'like', '%' . $this->search . '%')
-            ->orWhere('cpf', 'like', '%' . $this->search . '%')
-            ->orderBy('name')
-            ->paginate($this->perPage);
-        return view('livewire.associate-list')->with('associates',$associates);
+         $associatesQuery = $this->getFilterAssociates();
+
+        return view('livewire.associate-list')->with('associates',$associatesQuery->paginate($this->perPage));
+    }
+
+    public function export($format = 'pdf')
+    {
+        $associatesQuery = $this->getFilterAssociates(); // Aqui pega todos os dados filtrados
+
+        $reportName = "Relatório de Associados";
+        $reportName .= ".pdf";
+
+        $pdf = Pdf::loadView('reports.associates', [
+            'associates' => $associatesQuery->get(),
+            'start_date' => ($this->start_date)?Carbon::parse($this->start_date)->format("d/m/Y"):null,
+            'end_date' => ($this->end_date)?Carbon::parse($this->end_date)->format("d/m/Y"):null,
+        ]);
+        return response()->streamDownload(fn () => print($pdf->stream()), $reportName);
+    }
+    public function exportarInadimplentes($format = 'pdf')
+    {
+        $associatesQuery = Associate::whereHas('mounthlyFees', function ($query) {
+            $query->where('status', '!=', 'Pago')
+                ->where('due_date', '<=', now());
+        })
+        ->orderBy('name');
+
+        $reportName = "Relatório de Associados Inadimplentes";
+        $reportName .= ".pdf";
+
+        $pdf = Pdf::loadView('reports.associates-defaulter', [
+            'associates' => $associatesQuery->get(),
+        ]);
+        return response()->streamDownload(fn () => print($pdf->stream()), $reportName);
+    }
+
+    public function toggleFilters()
+    {
+        $this->showFilters = !$this->showFilters;
+    }
+
+    public function getFilterAssociates()
+    {
+        return Associate::where(function ($query) {
+            $query->where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('surname', 'like', '%' . $this->search . '%');
+        })
+        ->when($this->filterStatus == "0" || $this->filterStatus == "1", function ($query) {
+            $query->where('active', $this->filterStatus);
+        })
+        ->when($this->start_date, function($query){
+            $query->where('admission_date', '>=', $this->start_date." 00:00:00");
+        })
+        ->when($this->end_date, function($query){
+            $query->where('admission_date', '<=', $this->end_date." 00:00:00");
+        })
+        ->orderBy('name');
     }
 
     public function exportarSelecionados()

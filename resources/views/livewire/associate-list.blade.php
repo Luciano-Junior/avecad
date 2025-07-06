@@ -1,5 +1,17 @@
 <div>
     <div class="flex flex-col gap-3 sm:flex-row sm:items-center justify-between">
+        <div>
+            <button
+                wire:click="toggleFilters"
+                type="button"
+                class="bg-blue-500 text-sm text-white px-4 py-2 rounded-lg flex items-center gap-2"
+                title="Filtros"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 13.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 019 17v-3.586L3.293 6.707A1 1 0 013 6V4z" />
+                </svg>
+            </button>
+        </div>
         <div class="relative">
             <span class="absolute -translate-y-1/2 pointer-events-none top-1/2 left-4">
                 <svg class="fill-gray-500 dark:fill-gray-400" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -8,15 +20,83 @@
             </span>
             <input type="text" placeholder="Buscar..." wire:model.live.debounce.300ms="search" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-10 w-full rounded-lg border border-gray-300 py-2.5 pr-4 pl-[42px] text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden xl:w-[300px] dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
         </div>
-        <a href="{{route('associate.register')}}">
-            <button class="p-2 flex text-sm items-center sm:rounded-lg uppercase bg-green-500 text-white dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-gray-300 gap-2">
-                {{__('New')}}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
-                </svg>
-            </button>
-        </a>
+        <div class="flex lg:flex-row gap-3 sm:flex-row sm:items-center lg:justify-between">
+            <a href="{{route('associate.register')}}">
+                <button class="p-2 flex text-sm items-center sm:rounded-lg uppercase bg-green-500 text-white dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-gray-300 gap-2">
+                    {{__('New')}}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </a>
+            {{-- <button class="text-sm items-center p-2 flex sm:rounded-lg uppercase bg-blue-500 text-white dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-gray-300 gap-2" wire:click.prevent="export()">
+                {{__('Exportar')}}
+                <svg class="size-6" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" stroke="#000"><g stroke-width="0"/><g stroke-linecap="round" stroke-linejoin="round"/><path d="M161.28 328.32a61 61 0 0 0-40.32-8.32H85.333v128h28.373v-48.853h12.16a55.04 55.04 0 0 0 35.84-8.747 38.61 38.61 0 0 0 13.44-30.933 37.33 37.33 0 0 0-13.866-31.147m-22.827 46.72a32.85 32.85 0 0 1-17.067 2.56h-8.32v-36.266h8.32a30.3 30.3 0 0 1 17.494 3.413 17.49 17.49 0 0 1 7.466 15.36 15.15 15.15 0 0 1-7.893 14.933M236.16 320h-35.414v128h33.92a90.24 90.24 0 0 0 50.134-9.6 60.16 60.16 0 0 0 23.893-54.4 64 64 0 0 0-17.707-48.853A73.4 73.4 0 0 0 236.16 320m28.16 98.987a51.2 51.2 0 0 1-29.227 6.4h-5.547v-82.773h5.12c17.92 0 24.96 1.706 32 8.106a43.95 43.95 0 0 1 12.16 33.28 41.39 41.39 0 0 1-14.506 34.987M339.84 448h28.8v-53.546h58.026V371.84H368.64v-29.226h58.026V320H339.84zM320 42.667H85.333v234.667H128v-192h174.293L384 167.04v110.294h42.666v-128z" fill="#fff" fill-rule="evenodd" stroke="none"/></svg>
+            </button> --}}
+            <!-- Grupo de botões Exportar com Dropdown -->
+            <div x-data="{ open: false }" class="relative flex items-center">
+                <!-- Botão Exportar principal -->
+                <button
+                    class="text-sm items-center p-2 flex rounded-lg rounded-r-none uppercase bg-blue-500 text-white dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-gray-300 gap-2 w-auto"
+                    wire:click.prevent="export()"
+                >
+                    {{ __('Exportar') }}
+                    <svg class="size-6" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" stroke="#000"><g stroke-width="0"/><g stroke-linecap="round" stroke-linejoin="round"/><path d="M161.28 328.32a61 61 0 0 0-40.32-8.32H85.333v128h28.373v-48.853h12.16a55.04 55.04 0 0 0 35.84-8.747 38.61 38.61 0 0 0 13.44-30.933 37.33 37.33 0 0 0-13.866-31.147m-22.827 46.72a32.85 32.85 0 0 1-17.067 2.56h-8.32v-36.266h8.32a30.3 30.3 0 0 1 17.494 3.413 17.49 17.49 0 0 1 7.466 15.36 15.15 15.15 0 0 1-7.893 14.933M236.16 320h-35.414v128h33.92a90.24 90.24 0 0 0 50.134-9.6 60.16 60.16 0 0 0 23.893-54.4 64 64 0 0 0-17.707-48.853A73.4 73.4 0 0 0 236.16 320m28.16 98.987a51.2 51.2 0 0 1-29.227 6.4h-5.547v-82.773h5.12c17.92 0 24.96 1.706 32 8.106a43.95 43.95 0 0 1 12.16 33.28 41.39 41.39 0 0 1-14.506 34.987M339.84 448h28.8v-53.546h58.026V371.84H368.64v-29.226h58.026V320H339.84zM320 42.667H85.333v234.667H128v-192h174.293L384 167.04v110.294h42.666v-128z" fill="#fff" fill-rule="evenodd" stroke="none"/></svg>
+                </button>
+                <!-- Botão seta para abrir dropdown -->
+                <button
+                    @click="open = !open"
+                    class="p-2 bg-blue-500 text-white sm:rounded-r-lg flex items-center hover:bg-blue-600 focus:outline-none"
+                    aria-haspopup="true"
+                    :aria-expanded="open"
+                    title="Mais opções de exportação"
+                >
+                    <svg class="size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <!-- Dropdown -->
+                <div
+                    x-show="open"
+                    @click.away="open = false"
+                    x-transition
+                    class="absolute right-0 mt-15 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50"
+                >
+                    <div class="py-1">
+                        <button
+                            wire:click.prevent="exportarInadimplentes"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                            Exportar Inadimplentes
+                        </button>
+                        <!-- Adicione mais opções aqui se necessário -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    @if ($showFilters)
+        <div class="mt-4 mb-4 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-4 transition ease-out duration-300">
+            <div>
+                <label class="block text-sm text-gray-700 dark:text-gray-300" for="start_date">Data Início Admissão</label>
+                <input type="date" id="start_date" wire:model.live="start_date" class="mt-1 block w-full rounded border-gray-300 shadow-sm dark:bg-gray-800 dark:border-gray-600 focus:outline-none focus:ring">
+            </div>
+            <!-- Filtro: Data Final -->
+            <div>
+                <label class="block text-sm text-gray-700 dark:text-gray-300" for="end_date">Data Fim Admissão</label>
+                <input type="date" id="end_date" wire:model.live="end_date" class="mt-1 block w-full rounded border-gray-300 shadow-sm dark:bg-gray-800 dark:border-gray-600 focus:outline-none focus:ring">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Status</label>
+                <select wire:model.live="filterStatus" class="mt-1 block w-full rounded border-gray-300 shadow-sm dark:bg-gray-800 dark:border-gray-600">
+                    <option value="">Todos</option>
+                    <option value="1">Ativo</option>
+                    <option value="0">Inativo</option>
+                </select>
+            </div>
+            <!-- Adicione mais filtros aqui -->
+        </div>
+    @endif
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg pt-2">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
