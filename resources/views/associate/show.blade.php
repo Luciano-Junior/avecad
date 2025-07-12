@@ -117,8 +117,12 @@
                                 <td class="px-6 py-4">
                                     {{$mounthlyFee->type_format}}
                                 </td>
-                                <td class="px-6 py-4" {{$mounthlyFee->status == "Pago" ? "text-green-500": "text-red-500"}}>
-                                    {{$mounthlyFee->status}}
+                                <td class="px-6 py-4" {{$mounthlyFee->status == "Pago" ? "text-green-500": "text-blue-500"}}>
+                                    @if ($mounthlyFee->status !== "Pago" && $mounthlyFee->due_date < \Carbon\Carbon::now())
+                                        <span class="text-white bg-red-500 p-2 rounded-sm">Atrasado</span>
+                                    @else
+                                        <span class="{{$mounthlyFee->status == "Pago" ? "text-white bg-blue-400 p-2 rounded-sm": ""}}">{{$mounthlyFee->status}}</span>
+                                    @endif
                                 </td>
                                 <td class="px-6 py-4 text-right flex gap-2">
                                     @if ($mounthlyFee->type == "R")

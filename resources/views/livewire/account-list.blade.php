@@ -19,7 +19,7 @@
             </span>
             <input type="text" placeholder="Buscar..." wire:model.live.debounce.300ms="search" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-10 w-full rounded-lg border border-gray-300 py-2.5 pr-4 pl-[42px] text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden xl:w-[300px] dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
         </div>
-        <div class="flex lg:flex-col gap-3 sm:flex-row sm:items-center lg:justify-between">
+        <div class="flex lg:flex-row gap-3 sm:flex-row sm:items-center lg:justify-between">
             <a href="{{route('account.register')}}">
                 <button class="text-sm items-center p-2 flex sm:rounded-lg uppercase bg-green-500 text-white dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-gray-300 gap-2">
                     {{__('Nova Conta')}}
@@ -149,8 +149,12 @@
                         <td class="px-6 py-4">
                             {{$account->type_format}}
                         </td>
-                        <td class="px-6 py-4 {{$account->status == "Pago" ? "text-green-500": "text-red-500"}}">
-                            {{$account->status}}
+                        <td class="px-6 py-4 {{$account->status == "Pago" ? "text-green-500": ""}}">
+                            @if ($account->status !== "Pago" && $account->due_date < \Carbon\Carbon::now())
+                                <span class="text-white bg-red-500 p-2 rounded-sm">Atrasado</span>
+                            @else
+                                <span class="{{$account->status == "Pago" ? "text-white bg-blue-400 p-2 rounded-sm": ""}}">{{$account->status}}</span>
+                            @endif
                         </td>
                         <td class="px-6 py-4 text-right flex gap-2">
                             <x-nav-link-table :active="true" href="#" class="hover:underline" title="Editar">

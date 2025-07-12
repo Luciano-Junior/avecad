@@ -100,6 +100,23 @@ class AssociateList extends Component
         return response()->streamDownload(fn () => print($pdf->stream()), $reportName);
     }
 
+    public function exportarAdimplentes($format = 'pdf')
+    {
+        $associatesQuery = Associate::whereHas('mounthlyFees', function ($query) {
+            $query->where('status', '=', 'Pago')
+                ->where('due_date', '<=', now());
+        })
+        ->orderBy('name');
+
+        $reportName = "Relatório de Associados Adimplentes";
+        $reportName .= ".pdf";
+
+        $pdf = Pdf::loadView('reports.associates-adimplentes', [
+            'associates' => $associatesQuery->get(),
+        ]);
+        return response()->streamDownload(fn () => print($pdf->stream()), $reportName);
+    }
+
     public function toggleFilters()
     {
         $this->showFilters = !$this->showFilters;

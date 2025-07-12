@@ -92,24 +92,24 @@
                 </th>
             </tr>
             <tr style="background-color: #f0f0f0;">
-                <th>Associado</th>
+                <th colspan="2">Associado</th>
                 <th>Contato</th>
-                <th>Qtd. Parcelas</th>
+                {{-- <th>Qtd. Parcelas</th> --}}
             </tr>
         </thead>
         <tbody>
             @foreach ($associates as $associate)
                 <tr>
-                    <td>{{ $associate->name }}</td>
+                    <td colspan="2">{{ $associate->name }}</td>
                     <td>{{ $associate->contact }}</td>
-                    <td>
+                    {{-- <td>
                         {{ 
                             $associate->mounthlyFees
                                 ->where('status', 'Pendente')
                                 ->where('due_date', '<', now())
                                 ->count() 
                         }}
-                    </td>
+                    </td> --}}
                 </tr>
             @endforeach
         </tbody>
