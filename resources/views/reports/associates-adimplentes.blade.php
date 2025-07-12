@@ -88,7 +88,7 @@
             <!-- Linha do título centralizado -->
             <tr>
                 <th colspan="3" style="text-align: center; font-size: 18px; font-weight: bold; border: none; padding-bottom: 10px;">
-                    Relatório de Associados Inadimplentes
+                    Relatório de Associados Adimplentes
                 </th>
             </tr>
             <tr style="background-color: #f0f0f0;">
