@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AssociateStoreRequest;
 use App\Models\Associate;
+use App\Models\CategoryAssociate;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class AssociateController extends Controller
@@ -26,7 +28,8 @@ class AssociateController extends Controller
      */
     public function create(): View
     {
-        return view('associate.crud');
+        $categories = CategoryAssociate::all();
+        return view('associate.crud')->with('categories', $categories);
     }
 
     /**
@@ -47,11 +50,35 @@ class AssociateController extends Controller
                 'contact' => $request->associate_contact,
                 'family_contact' => $request->associate_family_contact,
                 'active' => $request->associate_active,
+                'category_associate_id' => $request->category_associate_id,
+                'vest_number' => $request->vest_number,
+                'occupation' => $request->occupation,
+                'birth_date' => $request->birth_date,
             ]);
 
-            return Redirect::route('associate.index')->with('status', 'associate-updated');
+            $fotoPath = null;
+
+            if ($request->hasFile('path_image')) {
+                $ext = $request->file('path_image')->extension();
+                $filename = "associados/{$associate->id}.{$ext}";
+
+                Storage::disk('public')->putFileAs(
+                    'associados',
+                    $request->file('path_image'),
+                    "{$associate->id}.{$ext}"
+                );
+
+                $fotoPath = $filename;
+
+            }
+
+            $associate->update([
+                'path_image' => $fotoPath,
+            ]);
+
+            return Redirect::route('associate.index')->with('success', 'Associado cadastrado com sucesso!');
         } catch (Exception $ex) {
-            dd($ex->getMessage());
+            return back()->with('error', 'Houve um erro ao cadastrar associado. '.$ex->getMessage());
         }
     }
 
@@ -67,14 +94,14 @@ class AssociateController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): View
+    public function edit(string $id)
     {
         try {
             $associate = Associate::find($id);
-
-            return view('associate.crud')->with('associate', $associate);
+            $categories = CategoryAssociate::all();
+            return view('associate.crud')->with(['associate'=>$associate,'categories'=>$categories]);
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return back()->with('error', 'Houve um erro ao buscar associado. '.$e->getMessage());
         }
     }
 
@@ -86,12 +113,38 @@ class AssociateController extends Controller
         try {
             $associate = Associate::findOrFail($id);
 
-            $associate->update($request->validatedData());
+            $dados = $request->validatedData();
+
+            if (!$request->hasFile('path_image')) {
+                unset($dados['path_image']);
+            }
+
+            $associate->update($dados);
             $associate->save();
+
+            $fotoPath = null;
+
+            if ($request->hasFile('path_image')) {
+                $ext = $request->file('path_image')->extension();
+                $filename = "associados/{$associate->id}.{$ext}";
+
+                Storage::disk('public')->putFileAs(
+                    'associados',
+                    $request->file('path_image'),
+                    "{$associate->id}.{$ext}"
+                );
+
+                $fotoPath = $filename;
+
+                $associate->update([
+                    'path_image' => $fotoPath,
+                ]);
+            }
+            
 
             return Redirect::route('associate.index')->with('success', 'Registro atualizado com sucesso!');
         } catch (Exception $e) {
-            dd($e);
+            return back()->with('error', 'Houve um erro ao atualizar associado. '.$e->getMessage());
         }
     }
 

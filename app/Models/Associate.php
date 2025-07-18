@@ -23,6 +23,11 @@ class Associate extends Model
         'contact',
         'family_contact',
         'active',
+        'category_associate_id',
+        'vest_number',
+        'occupation',
+        'birth_date',
+        'path_image',
     ];
 
      /**

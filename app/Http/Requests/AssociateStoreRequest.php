@@ -34,6 +34,11 @@ class AssociateStoreRequest extends FormRequest
             'associate_contact' => ['required','string'],
             'associate_family_contact' => ['required','string'],
             'associate_active' => ['required','boolean'],
+            'category_associate_id' => ['required'],
+            'vest_number' => ['required'],
+            'occupation' => ['required'],
+            'birth_date' => ['required','date'],
+            'path_image' => ['nullable','image','max:2048']
         ];
     }
 
@@ -53,6 +58,10 @@ class AssociateStoreRequest extends FormRequest
             'associate_contact.required' => 'O campo Contato é obrigatório.',
             'associate_family_contact.required' => 'O campo Contato do Familiar é obrigatório.',
             'associate_active.required' => 'O campo Status é obrigatório.',
+            'category_associate_id.required' => 'O campo Categoria é obrigatório.',
+            'vest_number.required' => 'O campo Nº do Colete é obrigatório.',
+            'occupation.required' => 'O campo Profissão é obrigatório.',
+            'birth_date.required' => 'O campo Data de Nascimento é obrigatório.',
         ];
     }
 
@@ -77,6 +86,11 @@ class AssociateStoreRequest extends FormRequest
             'contact' => $this->associate_contact,
             'family_contact' => $this->associate_family_contact,
             'active' => $this->associate_active,
+            'category_associate_id' => $this->category_associate_id,
+            'vest_number' => $this->vest_number,
+            'occupation' => $this->occupation,
+            'birth_date' => $this->birth_date,
+            'path_image' => $this->path_image
         ];
     }
     

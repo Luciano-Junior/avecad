@@ -38,6 +38,14 @@
                             </a>
                         @endslot
                     </x-nav-dropdown>
+                    <x-nav-dropdown :active="request()->routeIs('account.index') || request()->routeIs('transaction.index') || request()->routeIs('configuration.index')">
+                        Cadastros
+                        @slot('dropdown')
+                            <a href="{{ route('category-associate.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                Categoria Associados
+                            </a>
+                        @endslot
+                    </x-nav-dropdown>
                     <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
                         {{ __('Usuários') }}
                     </x-nav-link>
@@ -116,6 +124,14 @@
                         </x-responsive-nav-link>
                     @endslot
                 </x-responsive-nav-dropdown>
+            <x-responsive-nav-dropdown :active="request()->routeIs('account.index') || request()->routeIs('transaction.index') || request()->routeIs('configuration.index')">
+                Cadastros
+                @slot('dropdown')
+                    <x-responsive-nav-link :href="route('account.index')" :active="request()->routeIs('account.index')">
+                        Categoria Associado
+                    </x-responsive-nav-link>
+                @endslot
+            </x-responsive-nav-dropdown>
             <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
                 {{ __('Usuários') }}
             </x-responsive-nav-link>

@@ -6,20 +6,61 @@
 
     </header>
 
-    <form method="post" action="{{ route('associate.create') }}" class="mt-6 space-y-6 px-3">
+    <form method="post" action="{{ route('associate.create') }}" enctype="multipart/form-data" class="mt-6 space-y-6 px-3" x-data="{ previewUpload: null }">
         @csrf
 
+        <div class="grid grid-cols-1">
+
+            <!-- Upload convencional -->
+            <div class="mb-4">
+                <label class="block text-md">Escolher uma imagem de perfil</label>
+                <input type="file" name="path_image" accept="image/*" class="mt-2 block w-full"
+                    @change="previewUpload = URL.createObjectURL($event.target.files[0])">
+                <template x-if="previewUpload">
+                    <img :src="previewUpload" width="150" class="w-32 h-32 mt-2 object-cover rounded-full border" />
+                </template>
+            </div>
+
+        </div>
+
         <div class="grid grid-cols-3 gap-2">
+            <div>
+                <x-input-label for="category_associate_id" :value="__('Categoria').'*'" />
+                <x-select name="category_associate_id" id="category_associate_id">
+                    <option value="">Selecione uma categoria</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category_associate_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                    @endforeach
+                </x-select>
+                <x-input-error :messages="$errors->get('category_associate_id')" class="mt-2" />
+            </div>
             <div class="col-span-2">
                 <x-input-label for="associate_name" :value="__('Name').'*'" />
                 <x-text-input id="associate_name" name="associate_name" type="text" :value="old('associate_name')" class="mt-1 block w-full" autocomplete="name" />
                 <x-input-error :messages="$errors->get('associate_name')" class="mt-2" />
             </div>
-    
+        </div>
+
+        <div class="grid grid-cols-4 gap-2">
             <div>
                 <x-input-label for="associate_surname" :value="__('Surname').'*'" />
                 <x-text-input id="associate_surname" name="associate_surname" type="text" :value="old('associate_surname')" class="mt-1 block w-full" autocomplete="surname" />
                 <x-input-error :messages="$errors->get('associate_surname')" class="mt-2" />
+            </div>
+            <div>
+                <x-input-label for="occupation" :value="__('Profissão').'*'" />
+                <x-text-input id="occupation" name="occupation" type="text" :value="old('occupation')" class="mt-1 block w-full" />
+                <x-input-error :messages="$errors->get('occupation')" class="mt-2" />
+            </div>
+            <div>
+                <x-input-label for="vest_number" :value="__('Nº Colete').'*'" />
+                <x-text-input id="vest_number" name="vest_number" type="text" :value="old('vest_number')" class="mt-1 block w-full" />
+                <x-input-error :messages="$errors->get('vest_number')" class="mt-2" />
+            </div>
+            <div>
+                <x-input-label for="birth_date" :value="__('Data de Nascimento').'*'" />
+                <x-text-input id="birth_date" name="birth_date" type="date" class="mt-1 block w-full" :value="old('birth_date')" autocomplete="admission_date" />
+                <x-input-error :messages="$errors->get('birth_date')" class="mt-2" />
             </div>
         </div>
 

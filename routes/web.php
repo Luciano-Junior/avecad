@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AssociateController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoryAssociateController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
@@ -67,6 +68,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/categories/edit/{id}', [CategoriesController::class, 'show'])->name('category.edit');
     Route::put('/categories/update/{id}', [CategoriesController::class, 'update'])->name('category.update');
     Route::delete('/categories/delete/{id}', [CategoriesController::class, 'destroy'])->name('category.delete');
+
+    Route::get('/category-associate', [CategoryAssociateController::class, 'index'])->name('category-associate.index');
 });
 
 require __DIR__.'/auth.php';

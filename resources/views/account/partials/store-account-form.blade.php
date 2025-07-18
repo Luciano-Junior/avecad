@@ -18,7 +18,7 @@
             <div>
                 <x-input-label for="category" :value="__('Category').'*'" />
                 <x-select name="category_id" id="category">
-                    <option value="">Selecione um categoria</option>
+                    <option value="">Selecione uma categoria</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                     @endforeach
