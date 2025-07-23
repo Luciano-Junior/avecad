@@ -38,11 +38,14 @@
                             </a>
                         @endslot
                     </x-nav-dropdown>
-                    <x-nav-dropdown :active="request()->routeIs('account.index') || request()->routeIs('transaction.index') || request()->routeIs('configuration.index')">
+                    <x-nav-dropdown :active="request()->routeIs('category-associate.index') || request()->routeIs('type-associate.index')">
                         Cadastros
                         @slot('dropdown')
                             <a href="{{ route('category-associate.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 Categoria Associados
+                            </a>
+                            <a href="{{ route('type-associate.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                Tipo Associado
                             </a>
                         @endslot
                     </x-nav-dropdown>
@@ -124,11 +127,14 @@
                         </x-responsive-nav-link>
                     @endslot
                 </x-responsive-nav-dropdown>
-            <x-responsive-nav-dropdown :active="request()->routeIs('account.index') || request()->routeIs('transaction.index') || request()->routeIs('configuration.index')">
+            <x-responsive-nav-dropdown :active="request()->routeIs('category-associate.index') || request()->routeIs('type-associate.index')">
                 Cadastros
                 @slot('dropdown')
-                    <x-responsive-nav-link :href="route('account.index')" :active="request()->routeIs('account.index')">
+                    <x-responsive-nav-link :href="route('category-associate.index')" :active="request()->routeIs('category-associate.index')">
                         Categoria Associado
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('type-associate.index')" :active="request()->routeIs('type-associate.index')">
+                        Tipo Associado
                     </x-responsive-nav-link>
                 @endslot
             </x-responsive-nav-dropdown>

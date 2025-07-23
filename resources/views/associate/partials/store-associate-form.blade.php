@@ -23,7 +23,17 @@
 
         </div>
 
-        <div class="grid grid-cols-3 gap-2">
+        <div class="grid grid-cols-4 gap-2">
+            <div>
+                <x-input-label for="type_associate_id" :value="__('Tipo').'*'" />
+                <x-select name="type_associate_id" id="type_associate_id">
+                    <option value="">Selecione um Tipo</option>
+                    @foreach ($types as $type)
+                        <option value="{{ $type->id }}" {{ old('type_associate_id') == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
+                    @endforeach
+                </x-select>
+                <x-input-error :messages="$errors->get('type_associate_id')" class="mt-2" />
+            </div>
             <div>
                 <x-input-label for="category_associate_id" :value="__('Categoria').'*'" />
                 <x-select name="category_associate_id" id="category_associate_id">

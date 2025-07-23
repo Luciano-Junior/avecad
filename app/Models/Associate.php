@@ -28,6 +28,7 @@ class Associate extends Model
         'occupation',
         'birth_date',
         'path_image',
+        'type_associate_id',
     ];
 
      /**

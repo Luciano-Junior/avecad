@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryAssociateController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TypeAssociateController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/categories/delete/{id}', [CategoriesController::class, 'destroy'])->name('category.delete');
 
     Route::get('/category-associate', [CategoryAssociateController::class, 'index'])->name('category-associate.index');
+    Route::get('/type-associate', [TypeAssociateController::class, 'index'])->name('type-associate.index');
 });
 
 require __DIR__.'/auth.php';

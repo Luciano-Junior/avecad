@@ -38,7 +38,8 @@ class AssociateStoreRequest extends FormRequest
             'vest_number' => ['required'],
             'occupation' => ['required'],
             'birth_date' => ['required','date'],
-            'path_image' => ['nullable','image','max:2048']
+            'path_image' => ['nullable','image','max:2048'],
+            'type_associate_id' => ['required', 'exists:type_associates,id']
         ];
     }
 
@@ -62,6 +63,7 @@ class AssociateStoreRequest extends FormRequest
             'vest_number.required' => 'O campo Nº do Colete é obrigatório.',
             'occupation.required' => 'O campo Profissão é obrigatório.',
             'birth_date.required' => 'O campo Data de Nascimento é obrigatório.',
+            'type_associate_id.required' => 'O campo Tipo é obrigatório.',
         ];
     }
 
@@ -90,7 +92,8 @@ class AssociateStoreRequest extends FormRequest
             'vest_number' => $this->vest_number,
             'occupation' => $this->occupation,
             'birth_date' => $this->birth_date,
-            'path_image' => $this->path_image
+            'path_image' => $this->path_image,
+            'type_associate_id' => $this->type_associate_id
         ];
     }
     

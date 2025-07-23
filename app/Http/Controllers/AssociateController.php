@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AssociateStoreRequest;
 use App\Models\Associate;
 use App\Models\CategoryAssociate;
+use App\Models\TypeAssociate;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class AssociateController extends Controller
     public function create(): View
     {
         $categories = CategoryAssociate::all();
-        return view('associate.crud')->with('categories', $categories);
+        $types = TypeAssociate::all();
+        return view('associate.crud')->with(['categories' => $categories, 'types' => $types]);
     }
 
     /**
@@ -54,6 +56,7 @@ class AssociateController extends Controller
                 'vest_number' => $request->vest_number,
                 'occupation' => $request->occupation,
                 'birth_date' => $request->birth_date,
+                'type_associate_id' => $request->type_associate_id,
             ]);
 
             $fotoPath = null;
@@ -99,7 +102,8 @@ class AssociateController extends Controller
         try {
             $associate = Associate::find($id);
             $categories = CategoryAssociate::all();
-            return view('associate.crud')->with(['associate'=>$associate,'categories'=>$categories]);
+            $types = TypeAssociate::all();
+            return view('associate.crud')->with(['associate'=>$associate,'categories'=>$categories,'types'=>$types]);
         } catch (Exception $e) {
             return back()->with('error', 'Houve um erro ao buscar associado. '.$e->getMessage());
         }

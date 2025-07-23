@@ -28,7 +28,17 @@
             @endif
 
         </div>
-        <div class="grid grid-cols-3 gap-2">
+        <div class="grid grid-cols-4 gap-2">
+            <div>
+                <x-input-label for="type_associate_id" :value="__('Tipo').'*'" />
+                <x-select name="type_associate_id" id="type_associate_id">
+                    <option value="">Selecione um tipo</option>
+                    @foreach ($types as $type)
+                        <option value="{{ $type->id }}" {{ $associate->type_associate_id == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
+                    @endforeach
+                </x-select>
+                <x-input-error :messages="$errors->get('type_associate_id')" class="mt-2" />
+            </div>
             <div>
                 <x-input-label for="category_associate_id" :value="__('Categoria').'*'" />
                 <x-select name="category_associate_id" id="category_associate_id">
@@ -47,7 +57,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-2">
+        <div class="grid grid-cols-4 gap-2">
             <div>
                 <x-input-label for="associate_surname" :value="__('Surname').'*'" />
                 <x-text-input id="associate_surname" name="associate_surname" type="text" :value="old('associate_surname', $associate->surname)" class="mt-1 block w-full" autocomplete="surname" />
