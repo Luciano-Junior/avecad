@@ -91,6 +91,8 @@ class AssociateController extends Controller
     public function show(Associate $associate): View
     {
         $associate->load('mounthlyFees');
+        $associate->load('category');
+        $associate->load('typeAssociate');
         return view('associate.show')->with('associate', $associate);
     }
 

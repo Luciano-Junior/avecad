@@ -9,6 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="grid grid-cols-1">
                 @if ($associate->path_image)
+                    <x-input-label for="foto" :value="__('Foto:')" />
                     <div class="max-w-32">
                         <img src="{{ asset('storage/'.$associate->path_image) }}" alt="Foto perfil" width="150" class="mt-2 object-cover rounded-full border">
                     </div>
@@ -17,11 +18,11 @@
             <div class="grid grid-cols-3 gap-2">
                 <div class="col-span-1">
                     <x-input-label for="type_associate_id" :value="__('Tipo')" />
-                    <x-text-input disabled="true" id="type_associate_id" name="type_associate_id" type="text" value="{{ $associate->type_associate_id }}" class="mt-1 block w-full" />
+                    <x-text-input disabled="true" id="type_associate_id" name="type_associate_id" type="text" value="{{ $associate->typeAssociate->name }}" class="mt-1 block w-full" />
                 </div>
                 <div class="col-span-1">
                     <x-input-label for="category_associate_id" :value="__('Categoria')" />
-                    <x-text-input disabled="true" id="category_associate_id" name="category_associate_id" type="text" value="{{ $associate->category_associate_id }}" class="mt-1 block w-full" />
+                    <x-text-input disabled="true" id="category_associate_id" name="category_associate_id" type="text" value="{{ $associate->category->name }}" class="mt-1 block w-full" />
                 </div>
             </div>
             <div class="grid grid-cols-3 gap-2">

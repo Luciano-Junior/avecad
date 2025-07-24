@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Associate extends Model
@@ -86,6 +87,13 @@ class Associate extends Model
 
     public function accounts():HasMany {
         return $this->hasMany(Account::class);
+    }
+
+    public function category():BelongsTo {
+        return $this->belongsTo(CategoryAssociate::class, 'category_associate_id', 'id');
+    }
+    public function typeAssociate():BelongsTo {
+        return $this->belongsTo(TypeAssociate::class, 'type_associate_id', 'id');
     }
 
     public function mounthlyFees(): HasMany {
