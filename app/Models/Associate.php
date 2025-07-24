@@ -38,6 +38,7 @@ class Associate extends Model
      */
     protected $casts = [
         'admission_date' => 'datetime',
+        'birth_date' => 'date',
     ];
 
     public function setContactAttribute($value)
@@ -50,11 +51,15 @@ class Associate extends Model
         $this->attributes['family_contact'] = preg_replace('/\D/', '', $value);
     }
 
-    protected $dates = ['admission_date']; // Garante que seja tratado como um objeto Carbon
+    protected $dates = ['admission_date', 'birth_date']; // Garante que seja tratado como um objeto Carbon
 
     public function getDataFormatadaAttribute()
     {
         return $this->admission_date ? $this->admission_date->format('d/m/Y') : null;
+    }
+    public function getDataNascimentoAttribute()
+    {
+        return $this->birth_date ? $this->birth_date->format('d/m/Y') : null;
     }
 
     public function getContactFormatadoAttribute()

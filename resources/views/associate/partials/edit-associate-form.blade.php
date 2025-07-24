@@ -73,10 +73,31 @@
                 <x-text-input id="vest_number" name="vest_number" type="text" :value="old('vest_number', $associate->vest_number)" class="mt-1 block w-full" />
                 <x-input-error :messages="$errors->get('vest_number')" class="mt-2" />
             </div>
-            <div>
-                <x-input-label for="birth_date" :value="__('Data de Nascimento').'*'" />
-                <x-text-input id="birth_date" name="birth_date" type="date" class="mt-1 block w-full" :value="old('birth_date',$associate->birth_date)" autocomplete="admission_date" />
-                <x-input-error :messages="$errors->get('birth_date')" class="mt-2" />
+            <div x-data="{
+                birth_date: '{{ old('birth_date', $associate->birth_date->format('Y-m-d')) }}',
+                get age() {
+                    if (!this.birth_date) return ''
+                    const birthDate = new Date(this.birth_date)
+                    const today = new Date()
+                    let age = today.getFullYear() - birthDate.getFullYear()
+                    const m = today.getMonth() - birthDate.getMonth()
+                    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                        age--
+                    }
+                    return age
+                }
+            }">
+
+                <div>
+                    <x-input-label for="birth_date" :value="__('Data de Nascimento').'*'" />
+                    <div class="flex gap-2 items-center">
+                        <x-text-input id="birth_date" name="birth_date" type="date" class="mt-1 block w-full" :value="old('birth_date',$associate->birth_date->format('Y-m-d'))" x-model="birth_date" autocomplete="admission_date" />
+                        <x-input-label for="age" :value="__('Idade').':'" />
+                        <span x-show="age !== ''"><span x-text="age"></span></span>
+                    </div>
+                    <x-input-error :messages="$errors->get('birth_date')" class="mt-2" />
+                </div>
+                
             </div>
         </div>
 

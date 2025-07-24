@@ -7,6 +7,23 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="grid grid-cols-1">
+                @if ($associate->path_image)
+                    <div class="max-w-32">
+                        <img src="{{ asset('storage/'.$associate->path_image) }}" alt="Foto perfil" width="150" class="mt-2 object-cover rounded-full border">
+                    </div>
+                @endif
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+                <div class="col-span-1">
+                    <x-input-label for="type_associate_id" :value="__('Tipo')" />
+                    <x-text-input disabled="true" id="type_associate_id" name="type_associate_id" type="text" value="{{ $associate->type_associate_id }}" class="mt-1 block w-full" />
+                </div>
+                <div class="col-span-1">
+                    <x-input-label for="category_associate_id" :value="__('Categoria')" />
+                    <x-text-input disabled="true" id="category_associate_id" name="category_associate_id" type="text" value="{{ $associate->category_associate_id }}" class="mt-1 block w-full" />
+                </div>
+            </div>
             <div class="grid grid-cols-3 gap-2">
                 <div class="col-span-2">
                     <x-input-label for="associate_name" :value="__('Name')" />
@@ -15,6 +32,24 @@
                 <div>
                     <x-input-label for="associate_name" :value="__('Surname')" />
                     <x-text-input disabled="true" id="associate_surname" name="associate_surname" type="text" value="{{ $associate->surname }}" class="mt-1 block w-full" />
+                </div>
+            </div>
+            <div class="grid grid-cols-4 gap-2">
+                <div>
+                    <x-input-label for="occupation" :value="__('Profissão')" />
+                    <x-text-input disabled="true" id="occupation" name="occupation" type="text" value="{{ $associate->occupation }}" class="mt-1 block w-full" />
+                </div>
+                <div>
+                    <x-input-label for="vest_number" :value="__('Nº Colete')" />
+                    <x-text-input disabled="true" id="vest_number" name="vest_number" type="text" value="{{ $associate->vest_number }}" class="mt-1 block w-full" />
+                </div>
+                <div>
+                    <x-input-label for="birth_date" :value="__('Data de Nascimento')" />
+                    <x-text-input disabled="true" id="birth_date" name="birth_date" type="text" value="{{ $associate->birth_date->format('d/m/Y') }}" class="mt-1 block w-full" />
+                </div>
+                <div>
+                    <x-input-label for="age" :value="__('Idade')" />
+                    <x-text-input disabled="true" id="age" name="age" type="text" value="{{ \Carbon\Carbon::parse($associate->birth_date)->age }}" class="mt-1 block w-full" />
                 </div>
             </div>
             <div class="grid grid-cols-3 gap-2">
