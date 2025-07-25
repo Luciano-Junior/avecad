@@ -92,7 +92,22 @@ class CategoryAssociateList extends Component
     {
         $this->perPage = 10; // Default items per page
     }
-
+    
+    public function deleteCategory(CategoryAssociate $category)
+    {
+        try {
+            $category->delete();
+            $this->dispatch('show-message', [
+                'type' => "success",
+                'message' => "Categoria excluída com sucesso",
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatch('show-message', [
+                'type' => "error",
+                'message' => "Erro ao excluir categoria - ".$e->getMessage(),
+            ]);
+        }
+    }
 
     public function render()
     {

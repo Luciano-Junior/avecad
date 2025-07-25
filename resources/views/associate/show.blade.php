@@ -46,7 +46,7 @@
                 </div>
                 <div>
                     <x-input-label for="birth_date" :value="__('Data de Nascimento')" />
-                    <x-text-input disabled="true" id="birth_date" name="birth_date" type="text" value="{{ $associate->birth_date->format('d/m/Y') }}" class="mt-1 block w-full" />
+                    <x-text-input disabled="true" id="birth_date" name="birth_date" type="text" value="{{ $associate->birth_date ? $associate->birth_date->format('d/m/Y') : '' }}" class="mt-1 block w-full" />
                 </div>
                 <div>
                     <x-input-label for="age" :value="__('Idade')" />

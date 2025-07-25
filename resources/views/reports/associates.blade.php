@@ -80,6 +80,8 @@
                     <img src="{{ public_path('imagens/LOGO_AVECAD.png') }}" alt="Logo" style="height: 40px;">
                 </th>
                 <th style="border:none"></th>
+                <th style="border:none"></th>
+                <th style="border:none"></th>
                 <th style="text-align: right; font-size: 12px; border: none; font-weight: normal;" colspan="2">
                     Emitido em:
                     {{ \Carbon\Carbon::now()->format('d/m/Y') }}
@@ -88,7 +90,7 @@
 
             <!-- Linha do título centralizado -->
             <tr>
-                <th colspan="5" style="text-align: center; font-size: 18px; font-weight: bold; border: none; padding-bottom: 10px;">
+                <th colspan="7" style="text-align: center; font-size: 18px; font-weight: bold; border: none; padding-bottom: 10px;">
                     Relatório de Associados
                 </th>
             </tr>
@@ -102,9 +104,11 @@
             </tr>
             <tr style="background-color: #f0f0f0;">
                 <th>Associado</th>
-                <th>Data Admissão</th>
+                <th>Apelido</th>
+                <th>Categoria</th>
+                <th>Tipo</th>
+                <th>Data Nascimento</th>
                 <th>Contato</th>
-                <th>Contato Familiar</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -112,9 +116,11 @@
             @foreach ($associates as $associate)
                 <tr>
                     <td>{{ $associate->name }}</td>
-                    <td>{{ \Carbon\Carbon::parse($associate->admission_date)->format('d/m/Y') }}</td>
-                    <td>{{ $associate->contact }}</td>
-                    <td>{{ $associate->family_contact_formatado }}</td>
+                    <td>{{ $associate->surname }}</td>
+                    <td>{{ $associate->category->name??'' }}</td>
+                    <td>{{ $associate->typeAssociate->name??'' }}</td>
+                    <td>{{ \Carbon\Carbon::parse($associate->birth_date)->format('d/m/Y') }}</td>
+                    <td>{{ $associate->contact_formatado }}</td>
                     <td>{{ $associate->active? 'Ativo':'Inativo' }}</td>
                 </tr>
             @endforeach

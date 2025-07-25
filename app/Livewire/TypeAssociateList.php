@@ -92,6 +92,22 @@ class TypeAssociateList extends Component
     {
         $this->perPage = 10; // Default items per page
     }
+
+    public function deleteType(TypeAssociate $type)
+    {
+        try {
+            $type->delete();
+            $this->dispatch('show-message', [
+                'type' => "success",
+                'message' => "Tipo excluído com sucesso",
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatch('show-message', [
+                'type' => "error",
+                'message' => "Erro ao excluir tipo - ".$e->getMessage(),
+            ]);
+        }
+    }
     
     public function render()
     {
