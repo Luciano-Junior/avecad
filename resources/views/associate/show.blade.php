@@ -76,7 +76,7 @@
                 </div>
                 <div>
                     <x-input-label for="associate_admission_date" :value="__('Data de Admissão')" />
-                    <x-text-input disabled="true" id="associate_admission_date" name="associate_admission_date" type="date" class="mt-1 block w-full" value="{{ $associate->admission_date->format('Y-m-d') }}" autocomplete="admission_date" />
+                    <x-text-input disabled="true" id="associate_admission_date" name="associate_admission_date" type="date" class="mt-1 block w-full" value="{{ $associate->admission_date ? $associate->admission_date->format('Y-m-d') : '' }}" autocomplete="admission_date" />
                     <x-input-error :messages="$errors->get('associate_admission_date')" class="mt-2" />
                 </div>
             </div>

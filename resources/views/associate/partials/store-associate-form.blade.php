@@ -25,7 +25,7 @@
 
         <div class="grid grid-cols-4 gap-2">
             <div>
-                <x-input-label for="type_associate_id" :value="__('Tipo').'*'" />
+                <x-input-label for="type_associate_id" :value="__('Tipo')" />
                 <x-select name="type_associate_id" id="type_associate_id">
                     <option value="">Selecione um Tipo</option>
                     @foreach ($types as $type)
@@ -35,7 +35,7 @@
                 <x-input-error :messages="$errors->get('type_associate_id')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="category_associate_id" :value="__('Categoria').'*'" />
+                <x-input-label for="category_associate_id" :value="__('Categoria')" />
                 <x-select name="category_associate_id" id="category_associate_id">
                     <option value="">Selecione uma categoria</option>
                     @foreach ($categories as $category)
@@ -53,17 +53,17 @@
 
         <div class="grid grid-cols-4 gap-2">
             <div>
-                <x-input-label for="associate_surname" :value="__('Surname').'*'" />
+                <x-input-label for="associate_surname" :value="__('Surname')" />
                 <x-text-input id="associate_surname" name="associate_surname" type="text" :value="old('associate_surname')" class="mt-1 block w-full" autocomplete="surname" />
                 <x-input-error :messages="$errors->get('associate_surname')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="occupation" :value="__('Profissão').'*'" />
+                <x-input-label for="occupation" :value="__('Profissão')" />
                 <x-text-input id="occupation" name="occupation" type="text" :value="old('occupation')" class="mt-1 block w-full" />
                 <x-input-error :messages="$errors->get('occupation')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="vest_number" :value="__('Nº Colete').'*'" />
+                <x-input-label for="vest_number" :value="__('Nº Colete')" />
                 <x-text-input id="vest_number" name="vest_number" type="text" :value="old('vest_number')" class="mt-1 block w-full" />
                 <x-input-error :messages="$errors->get('vest_number')" class="mt-2" />
             </div>
@@ -82,7 +82,7 @@
                 }
             }">
                 <div>
-                    <x-input-label for="birth_date" :value="__('Data de Nascimento').'*'" />
+                    <x-input-label for="birth_date" :value="__('Data de Nascimento')" />
                     <div class="flex gap-2 items-center">
                         <x-text-input id="birth_date" name="birth_date" type="date" class="mt-1 block w-full" :value="old('birth_date')" x-model="birth_date" autocomplete="admission_date" />
                         <x-input-label x-show="age !== ''" for="age" :value="__('Idade').':'" />
@@ -95,26 +95,26 @@
 
         <div class="grid grid-cols-3 gap-2">
             <div class="col-span-2">
-                <x-input-label for="associate_address" :value="__('Address').'*'" />
+                <x-input-label for="associate_address" :value="__('Address')" />
                 <x-text-input id="associate_address" name="associate_address" type="text" :value="old('associate_address')" class="mt-1 block w-full" autocomplete="address" />
                 <x-input-error :messages="$errors->get('associate_address')" class="mt-2" />
             </div>
 
             <div>
-                <x-input-label for="associate_neighborhood" :value="__('Neighborhood').'*'" />
+                <x-input-label for="associate_neighborhood" :value="__('Neighborhood')" />
                 <x-text-input id="associate_neighborhood" name="associate_neighborhood" type="text" :value="old('associate_neighborhood')" class="mt-1 block w-full" autocomplete="neighborhood" />
                 <x-input-error :messages="$errors->get('associate_neighborhood')" class="mt-2" />
             </div>
         </div>
         <div class="grid grid-cols-3 gap-2">
             <div>
-                <x-input-label for="associate_identity" :value="__('RG').'*'" />
+                <x-input-label for="associate_identity" :value="__('RG')" />
                 <x-text-input id="associate_identity" name="associate_identity" type="text" :value="old('associate_identity')" class="mt-1 block w-full" autocomplete="identity" maxlength="15"/>
                 <x-input-error :messages="$errors->get('associate_identity')" class="mt-2" />
             </div>
 
             <div x-data="cpfMask">
-                <x-input-label for="associate_cpf" :value="__('CPF').'*'" />
+                <x-input-label for="associate_cpf" :value="__('CPF')" />
                 <x-text-input id="associate_cpf" name="associate_cpf" type="text" class="mt-1 block w-full" autocomplete="cpf" x-model="cpf" :value="old('associate_cpf')"
                 x-data="cpfMask('{{ old('associate_cpf') }}')" 
                 x-on:input="formatCPF()" 
@@ -123,7 +123,7 @@
                 <x-input-error :messages="$errors->get('associate_cpf')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="associate_admission_date" :value="__('Data de Admissão').'*'" />
+                <x-input-label for="associate_admission_date" :value="__('Data de Admissão')" />
                 <x-text-input id="associate_admission_date" name="associate_admission_date" type="date" class="mt-1 block w-full" :value="old('associate_admission_date')" autocomplete="admission_date" />
                 <x-input-error :messages="$errors->get('associate_admission_date')" class="mt-2" />
             </div>
@@ -131,7 +131,7 @@
 
         <div class="grid grid-cols-3 gap-2">
             <div x-data="phoneMask">
-                <x-input-label for="associate_contact" :value="__('Contact').'*'" />
+                <x-input-label for="associate_contact" :value="__('Contact')" />
                 <x-text-input id="associate_contact" name="associate_contact" :value="old('associate_contact')" type="text" class="mt-1 block w-full" autocomplete="contact" x-model="phone" 
                 x-data="phoneMask('{{ old('associate_contact') }}')"
                 x-on:input="formatPhone()" 
@@ -141,7 +141,7 @@
             </div>
 
             <div x-data="phoneMask">
-                <x-input-label for="associate_family_contact" :value="__('Family Contact').'*'" />
+                <x-input-label for="associate_family_contact" :value="__('Family Contact')" />
                 <x-text-input id="associate_family_contact" name="associate_family_contact" type="text" :value="old('associate_family_contact')" class="mt-1 block w-full" autocomplete="phone" x-model="phone"
                 x-data="phoneMask('{{ old('associate_family_contact') }}')"
                 x-on:input="formatPhone()" 
@@ -150,7 +150,7 @@
                 <x-input-error :messages="$errors->get('associate_family_contact')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="associate_active" :value="__('Status').'*'" />
+                <x-input-label for="associate_active" :value="__('Status')" />
                 <x-select name="associate_active" id="associate_active">
                     <option value="1">Ativo</option>
                     <option value="0">Inativo</option>
