@@ -18,4 +18,8 @@ class Configuration extends Model
     public function getDueDay(){
         return Configuration::where('key','dia_vencimento_padrao')->value('value');
     }
+
+    public static function getCategoryIdMonthlyFee(){
+        return Configuration::where('key','categoria_mensalidade_id')->value('value');
+    }
 }

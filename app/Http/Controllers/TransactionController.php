@@ -28,7 +28,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::with('typeCategory')->get()->groupBy('typeCategory.name');
         return view('transaction.crud')->with(['categories'=>$categories]);
     }
 
@@ -78,7 +78,7 @@ class TransactionController extends Controller
     public function edit(string $id)
     {
         $transaction = Transaction::find($id);
-        $categories = Category::all();
+        $categories = Category::with('typeCategory')->get()->groupBy('typeCategory.name');
         return view('transaction.crud')->with(['categories'=>$categories, "transaction"=>$transaction]);
     }
 

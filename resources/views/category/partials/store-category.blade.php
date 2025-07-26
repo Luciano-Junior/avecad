@@ -17,6 +17,16 @@
                 @error('description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
         </div>
+        <div>
+            <x-input-label for="type_category_id" :value="__('Tipo de Categoria').'*'" />
+                <x-select name="type_category_id" id="type_category_id" wire:model="type_category_id">
+                    <option value="">Selecione um tipo de categoria</option>
+                    @foreach ($typeCategories as $type)
+                        <option value="{{ $type->id }}" {{ old('type_category_id') == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
+                    @endforeach
+                </x-select>
+                @error('type_category_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
         
 
         <div class="mt-6 flex justify-end">

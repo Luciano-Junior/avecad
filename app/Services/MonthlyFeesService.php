@@ -15,7 +15,7 @@ class MonthlyFeesService
         $configuration = new Configuration();
         $category = new Category();
         $amount = (float) $configuration->getAmountMonthlyFee();
-        $categoryId = $category->getIdByName('Mensalidade');
+        $categoryId = Configuration::getCategoryIdMonthlyFee();
         $description = "Mensalidade ".$associate->name;
         $type = "R";
         $status = "Pendente";

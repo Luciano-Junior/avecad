@@ -10,9 +10,9 @@
         </div>
         <div class="flex lg:flex-col gap-3 sm:flex-row sm:items-center lg:justify-between">
             <button class="text-sm items-center p-2 flex sm:rounded-lg uppercase bg-green-500 text-white dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-gray-300 gap-2"
-                wire:click.prevent="modalStoreCategory"
+                wire:click.prevent="modalStoreType"
             >
-                {{__('Nova Categoria')}}
+                {{__('Novo Tipo')}}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                     <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
                 </svg>
@@ -35,23 +35,13 @@
                         {{__('Nome')}}
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        <div class="flex items-center">
-                            {{__('Descrição')}}
-                        </div>
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        <div class="flex items-center">
-                            {{__('Type')}}
-                        </div>
-                    </th>
-                    <th scope="col" class="px-6 py-3">
                         <span class="sr-only">Ações</span>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($categories as $category)
-                    <tr wire:key="category-{{ $category->id }}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 "
+                @foreach ($typeCategories as $typeCategory)
+                    <tr wire:key="type-{{ $typeCategory->id }}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 "
                         x-data
                         x-on:toggle-all.window="
                             $el.querySelector('input[type=checkbox]').click()
@@ -60,31 +50,34 @@
                         {{-- Checkbox individual --}}
                         <td class="px-4 py-4">
                             <input type="checkbox" 
-                                wire:model.live="selectedCategories" 
-                                value="{{ $category->id }}" 
+                                wire:model.live="selectedTypes" 
+                                value="{{ $typeCategory->id }}" 
                                 class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
                             />
                         </td>
                         <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$category->name}}
+                            {{$typeCategory->name}}
                         </th>
-                        <td class="px-6 py-4">
-                            {{$category->description}}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{$category->typeCategory->name??''}}
-                        </td>
                         <td class="px-6 py-4 text-right flex gap-2">
                             
                             <button 
                                 class="hover:underline" 
                                 title="Editar"
-                                wire:click.prevent="viewEditCategory({{ $category }})"
+                                wire:click.prevent="viewEditType({{ $typeCategory }})"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
                                     <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
                                     <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
                                 </svg>                                          
+                            </button>
+                            <button 
+                                class="hover:underline" 
+                                title="Excluir"
+                                x-data
+                                @click="if (confirm('Deseja realmente excluír este registro?')) { $wire.deleteType({{ $typeCategory }}) }"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="size-4">
+                                    <path d="M10 11v6m4-6v6M4 7h16M6 7h12v11a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3zm3-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2H9z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>                                         
                             </button>
                             
                         </td>
@@ -94,7 +87,7 @@
             <tfoot>
                 <tr>
                     <th colspan="8">
-                        {{ $categories->links() }}
+                        {{ $typeCategories->links() }}
                     </th>
                 </tr>
             </tfoot>
@@ -108,10 +101,10 @@
             </select>
         </div>
     </div>
-    <x-modal name="edit-category">
-        @include('category.partials.update-category')
+    <x-modal name="edit-type">
+        @include('type_category.partials.update-type-category')
     </x-modal>
-    <x-modal name="store-category">
-        @include('category.partials.store-category')
+    <x-modal name="store-type">
+        @include('type_category.partials.store-type-category')
     </x-modal>
 </div>

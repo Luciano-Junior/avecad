@@ -16,6 +16,7 @@ class ConfigurationSeeder extends Seeder
         DB::table("configurations")->insert([
             ["key"=>"valor_mensalidade", "value"=> "50.00", "created_at"=>now()],
             ["key"=>"dia_vencimento_padrao", "value"=> "10", "created_at"=>now()],
+            ["key"=>"categoria_mensalidade_id", "value"=> "1", "created_at"=>now()],
         ]);
     }
 }

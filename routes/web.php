@@ -8,6 +8,7 @@ use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TypeAssociateController;
+use App\Http\Controllers\TypeCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -72,6 +73,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/category-associate', [CategoryAssociateController::class, 'index'])->name('category-associate.index');
     Route::get('/type-associate', [TypeAssociateController::class, 'index'])->name('type-associate.index');
+    Route::get('/type-category', [TypeCategoryController::class, 'index'])->name('type-category.index');
 });
 
 require __DIR__.'/auth.php';

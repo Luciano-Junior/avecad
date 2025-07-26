@@ -27,7 +27,7 @@ class AccountController extends Controller
     public function create(): View
     {
         $associates = Associate::all();
-        $categories = Category::all();
+        $categories = Category::with('typeCategory')->get()->groupBy('typeCategory.name');
         return view('account.crud')->with(['associates'=>$associates, 'categories'=>$categories]);
     }
 
@@ -59,7 +59,7 @@ class AccountController extends Controller
     {
         try {
             $account = Account::find($id);
-            $categories = Category::all();
+            $categories = Category::with('typeCategory')->get()->groupBy('typeCategory.name');
             $associates = Associate::all();
             return view('account.crud')->with([
                 'account'=>$account, 

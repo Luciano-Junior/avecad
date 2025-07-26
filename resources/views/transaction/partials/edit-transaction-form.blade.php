@@ -18,9 +18,17 @@
             <div>
                 <x-input-label for="category" :value="__('Category').'*'" />
                 <x-select name="category_id" id="category">
-                    <option value=""></option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ $transaction->category_id == $category->id ? 'selected':'' }}>{{ $category->name }}</option>
+                    <option value="">Selecione uma categoria</option>
+
+                    @foreach ($categories as $typeName => $groupedCategories)
+                        <optgroup label="{{ $typeName }}">
+                            @foreach ($groupedCategories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $transaction->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </optgroup>
                     @endforeach
                 </x-select>
                 <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
