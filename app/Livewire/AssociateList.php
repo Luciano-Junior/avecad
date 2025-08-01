@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Associate;
+use App\Models\CategoryAssociate;
+use App\Models\TypeAssociate;
 use App\Services\MonthlyFeesService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -23,6 +25,8 @@ class AssociateList extends Component
     public array $selectedAssociates = [];
     public $showFilters = false;
     public $filterStatus;
+    public $filterCategory;
+    public $filterType;
     public ?string $start_date = null;
     public ?string $end_date = null;
 
@@ -64,9 +68,11 @@ class AssociateList extends Component
 
     public function render()
     {
-         $associatesQuery = $this->getFilterAssociates();
+        $associatesQuery = $this->getFilterAssociates();
+        $categories = CategoryAssociate::all();
+        $types = TypeAssociate::all();
 
-        return view('livewire.associate-list')->with('associates',$associatesQuery->paginate($this->perPage));
+        return view('livewire.associate-list')->with('associates',$associatesQuery->paginate($this->perPage))->with('categories', $categories)->with('types', $types);
     }
 
     public function export($format = 'pdf')
@@ -136,6 +142,12 @@ class AssociateList extends Component
         })
         ->when($this->end_date, function($query){
             $query->where('admission_date', '<=', $this->end_date." 00:00:00");
+        })
+        ->when($this->filterCategory, function($query){
+            $query->where('category_associate_id', $this->filterCategory);
+        })
+        ->when($this->filterType, function($query){
+            $query->where('type_associate_id', $this->filterType);
         })
         ->orderBy('name');
     }
