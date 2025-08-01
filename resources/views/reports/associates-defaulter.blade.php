@@ -79,6 +79,7 @@
                 <th style="text-align: left; border: none;" colspan="2">
                     <img src="{{ public_path('imagens/LOGO_AVECAD.png') }}" alt="Logo" style="height: 40px;">
                 </th>
+                <th style="border:none"></th>
                 <th style="text-align: right; font-size: 12px; border: none; font-weight: normal;" colspan="1">
                     Emitido em:
                     {{ \Carbon\Carbon::now()->format('d/m/Y') }}
@@ -87,11 +88,12 @@
 
             <!-- Linha do título centralizado -->
             <tr>
-                <th colspan="3" style="text-align: center; font-size: 18px; font-weight: bold; border: none; padding-bottom: 10px;">
+                <th colspan="4" style="text-align: center; font-size: 18px; font-weight: bold; border: none; padding-bottom: 10px;">
                     Relatório de Associados Inadimplentes
                 </th>
             </tr>
             <tr style="background-color: #f0f0f0;">
+                <th></th>
                 <th>Associado</th>
                 <th>Contato</th>
                 <th>Qtd. Parcelas</th>
@@ -100,6 +102,7 @@
         <tbody>
             @foreach ($associates as $associate)
                 <tr>
+                    <th>{{ $loop->iteration }}</th>
                     <td>{{ $associate->name }}</td>
                     <td>{{ $associate->contact }}</td>
                     <td>

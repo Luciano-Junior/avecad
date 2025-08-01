@@ -81,6 +81,7 @@
                 </th>
                 <th style="border:none"></th>
                 <th style="border:none"></th>
+                <th style="border:none"></th>
                 <th style="text-align: right; font-size: 12px; border: none;" colspan="2">
                     {{ \Carbon\Carbon::now()->format('d/m/Y') }}
                 </th>
@@ -88,13 +89,13 @@
 
             <!-- Linha do título centralizado -->
             <tr>
-                <th colspan="6" style="text-align: center; font-size: 18px; font-weight: bold; border: none; padding-bottom: 10px;">
+                <th colspan="7" style="text-align: center; font-size: 18px; font-weight: bold; border: none; padding-bottom: 10px;">
                     @php
                         if($filterType){
                             $accountType = ($filterType == "R")?" a receber":"a pagar";
                         }
                     @endphp
-                    Relatório de contas {{ $accountType }}
+                    Relatório de contas {{ $accountType ?? '' }}
                 </th>
             </tr>
             <tr>
@@ -106,6 +107,7 @@
                 </th>
             </tr>
             <tr style="background-color: #f0f0f0;">
+                <th></th>
                 <th>Associado</th>
                 <th>Vencimento</th>
                 <th>Categoria</th>
@@ -117,7 +119,8 @@
         <tbody>
             @foreach ($accounts as $account)
                 <tr>
-                    <td>{{ $account->associate->name }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $account->description }}</td>
                     <td>{{ \Carbon\Carbon::parse($account->due_date)->format('d/m/Y') }}</td>
                     <td>{{ $account->category->name }}</td>
                     <td>{{ ($account->type == "R") ? "A Receber" : "A Pagar" }}</td>
@@ -128,15 +131,15 @@
         </tbody>
         <tfoot>
             <tr style="font-weight: bold; background-color: #f9f9f9;">
-                <td colspan="5" style="text-align: right;">Total a receber:</td>
+                <td colspan="6" style="text-align: right;">Total a receber:</td>
                 <td>R$ {{ number_format($totalReceber, 2, ',', '.') }}</td>
             </tr>
             <tr style="font-weight: bold; background-color: #e0e0e0;">
-                <td colspan="5" style="text-align: right;">Total a pagar:</td>
+                <td colspan="6" style="text-align: right;">Total a pagar:</td>
                 <td>R$ {{ number_format($totalPagar, 2, ',', '.') }}</td>
             </tr>
             <tr style="font-weight: bold; background-color: #e0e0e0;">
-                <td colspan="5" style="text-align: right;">Total recebido:</td>
+                <td colspan="6" style="text-align: right;">Total recebido:</td>
                 <td>R$ {{ number_format($totalRecebido, 2, ',', '.') }}</td>
             </tr>
         </tfoot>

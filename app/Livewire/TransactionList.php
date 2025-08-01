@@ -86,8 +86,8 @@ class TransactionList extends Component
             'totalFiltered'=>$saldoTotal,
             'filterType' => $this->filterType,
             'filterCategory' => $this->filterCategory,
-            'start_date' => Carbon::parse($this->start_date)->format("d/m/Y"),
-            'end_date' => Carbon::parse($this->end_date)->format("d/m/Y"),
+            'start_date' => $this->start_date ? Carbon::parse($this->start_date)->format("d/m/Y") : null,
+            'end_date' => $this->end_date ? Carbon::parse($this->end_date)->format("d/m/Y") : null,
         ]);
         return response()->streamDownload(fn () => print($pdf->stream()), 'Movimentações Financeiras - AVECAD.pdf');
     }
