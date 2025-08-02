@@ -86,7 +86,8 @@ class AssociateList extends Component
             'associates' => $associatesQuery->get(),
             'start_date' => ($this->start_date)?Carbon::parse($this->start_date)->format("d/m/Y"):null,
             'end_date' => ($this->end_date)?Carbon::parse($this->end_date)->format("d/m/Y"):null,
-        ]);
+        ])->setPaper('a4', 'landscape');
+
         return response()->streamDownload(fn () => print($pdf->stream()), $reportName);
     }
     public function exportarInadimplentes($format = 'pdf')
@@ -102,7 +103,7 @@ class AssociateList extends Component
 
         $pdf = Pdf::loadView('reports.associates-defaulter', [
             'associates' => $associatesQuery->get(),
-        ]);
+        ])->setPaper('a4', 'landscape');
         return response()->streamDownload(fn () => print($pdf->stream()), $reportName);
     }
 
@@ -119,7 +120,7 @@ class AssociateList extends Component
 
         $pdf = Pdf::loadView('reports.associates-adimplentes', [
             'associates' => $associatesQuery->get(),
-        ]);
+        ])->setPaper('a4', 'landscape');
         return response()->streamDownload(fn () => print($pdf->stream()), $reportName);
     }
 
