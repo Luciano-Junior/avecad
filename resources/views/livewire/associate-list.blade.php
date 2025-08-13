@@ -111,7 +111,7 @@
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Categoria</label>
-                <select wire:model.live="filterCategory" class="mt-1 block w-full rounded border-gray-300 shadow-sm dark:bg-gray-800 dark:border-gray-600">
+                <select wire:model.live="filterType" class="mt-1 block w-full rounded border-gray-300 shadow-sm dark:bg-gray-800 dark:border-gray-600">
                     <option value="">Todos</option>
                     @foreach ($types as $type)
                         <option value="{{ $type->id }}">{{ $type->name }}</option>
