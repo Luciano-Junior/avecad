@@ -8,6 +8,7 @@ use App\Models\TypeAssociate;
 use App\Services\MonthlyFeesService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -29,6 +30,8 @@ class AssociateList extends Component
     public $filterType;
     public ?string $start_date = null;
     public ?string $end_date = null;
+    public Collection $birthdayPeoples;
+    public $showModalAniversariantes = false;
 
     protected $updatesQueryString = ['search']; // mantém o valor ao trocar de página
 
@@ -41,6 +44,8 @@ class AssociateList extends Component
     {
         $this->start_month = now()->format('Y-m');
         $this->perPage = 10;
+        $this->birthdayPeoples = $this->getBirthdayPeoples();
+        $this->showModalAniversariantes = true;
     }
 
     public function updatingSearch()
@@ -189,5 +194,14 @@ class AssociateList extends Component
         $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
 
         return $response;
+    }
+
+    public function getBirthdayPeoples()
+    {
+        $currentMonth = Carbon::now()->month;
+
+        return Associate::whereMonth('birth_date', $currentMonth)
+            ->orderByRaw('DAY(birth_date)')
+            ->get();
     }
 }

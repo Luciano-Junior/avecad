@@ -270,5 +270,8 @@
     <x-modal name="generate-monthlyfees">
         @include('associate.partials.generate-monthlyfees-form')
     </x-modal>
+    <x-modal name="aniversariantes-mes" :show="$showModalAniversariantes">
+        @include('associate.partials.birthday-peoples')
+    </x-modal>
     
 </div>
