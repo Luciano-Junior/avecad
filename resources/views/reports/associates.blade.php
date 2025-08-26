@@ -107,6 +107,7 @@
                 <th></th>
                 <th>Associado</th>
                 <th>Apelido</th>
+                <th>Nº Colete</th>
                 <th>Categoria</th>
                 <th>Tipo</th>
                 <th>Data Nascimento</th>
@@ -120,6 +121,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $associate->name }}</td>
                     <td>{{ $associate->surname }}</td>
+                    <td>{{ $associate->vest_number }}</td>
                     <td>{{ $associate->category->name??'' }}</td>
                     <td>{{ $associate->typeAssociate->name??'' }}</td>
                     <td>{{ \Carbon\Carbon::parse($associate->birth_date)->format('d/m/Y') }}</td>
