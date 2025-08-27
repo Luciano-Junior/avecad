@@ -129,6 +129,20 @@ class AssociateList extends Component
         return response()->streamDownload(fn () => print($pdf->stream()), $reportName);
     }
 
+    public function exportarAniversariantes($format = 'pdf')
+    {
+        $associatesQuery = $this->getBirthdayPeoples();
+
+        $reportName = "Relatório de Aniversariantes";
+        $reportName .= ".pdf";
+
+        $pdf = Pdf::loadView('reports.associates-birthday', [
+            'associates' => $associatesQuery,
+        ])->setPaper('a4', 'landscape');
+
+        return response()->streamDownload(fn () => print($pdf->stream()), $reportName);
+    }
+
     public function toggleFilters()
     {
         $this->showFilters = !$this->showFilters;
