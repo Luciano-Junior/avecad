@@ -35,9 +35,10 @@ class AssociateList extends Component
 
     protected $updatesQueryString = ['search']; // mantém o valor ao trocar de página
 
-    public function SelectedAssociates()
+    public function toggleModalAniversariantes()
     {
-        // Exemplo: log($this->selectedAssociates);
+        $this->showModalAniversariantes = !$this->showModalAniversariantes;
+        $this->dispatch('close-modal', 'aniversariantes-mes');
     }
 
     public function mount()
