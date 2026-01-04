@@ -28,7 +28,7 @@
                                 Movimentações
                             </a>
                             <a href="{{ route('category.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                Categorias
+                                Rubricas
                             </a>
                             <a href="{{ route('type-category.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 Tipo de Categorias
@@ -120,7 +120,7 @@
                             Movimentações
                         </x-responsive-nav-link>
                         <x-responsive-nav-link :href="route('category.index')" :active="request()->routeIs('categorys.index')">
-                            Categorias
+                            Rubricas
                         </x-responsive-nav-link>
                         <x-responsive-nav-link :href="route('type-category.index')" :active="request()->routeIs('type-category.index')">
                             Tipo de Categorias
