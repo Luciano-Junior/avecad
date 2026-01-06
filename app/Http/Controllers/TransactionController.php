@@ -43,7 +43,7 @@ class TransactionController extends Controller
 
             $data['user_id'] = auth()->id();
             $data['cashbox_id'] = 1;
-
+            
             $transaction = Transaction::create($data);
 
             if($transaction){

@@ -21,13 +21,17 @@ class Transaction extends Model
 
     protected $casts = [
         'transaction_date' => 'date',
+        'amount' => 'decimal:2',
     ];
 
     protected $dates = ['transaction_date']; // Garante que seja tratado como um objeto Carbon
 
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = str_replace(',', '.', $value);
+        $value = str_replace('.', '', $value); // remove milhar
+        $value = str_replace(',', '.', $value); // converte decimal
+
+        $this->attributes['amount'] = $value;
     }
 
     public function category():BelongsTo{
