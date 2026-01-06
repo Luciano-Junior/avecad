@@ -74,6 +74,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/category-associate', [CategoryAssociateController::class, 'index'])->name('category-associate.index');
     Route::get('/type-associate', [TypeAssociateController::class, 'index'])->name('type-associate.index');
     Route::get('/type-category', [TypeCategoryController::class, 'index'])->name('type-category.index');
+
+    Route::get('/version', function(){
+        return "1.0.0";
+    })->name('version');
 });
 
 require __DIR__.'/auth.php';
