@@ -28,10 +28,12 @@ class Transaction extends Model
 
     public function setAmountAttribute($value)
     {
-        $value = str_replace('.', '', $value); // remove milhar
-        $value = str_replace(',', '.', $value); // converte decimal
+        if (is_string($value) && str_contains($value, ',')) {
+            $value = str_replace('.', '', $value);
+            $value = str_replace(',', '.', $value);
+        }
 
-        $this->attributes['amount'] = $value;
+        $this->attributes['amount'] = number_format((float) $value, 2, '.', '');
     }
 
     public function category():BelongsTo{
