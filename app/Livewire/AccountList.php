@@ -103,6 +103,22 @@ class AccountList extends Component
         $this->categories = Category::all();
     }
 
+    public function deleteAccount(Account $account)
+    {
+        try {
+            $account->delete();
+            $this->dispatch('show-message', [
+                'type' => "success",
+                'message' => "Conta excluída com sucesso",
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatch('show-message', [
+                'type' => "error",
+                'message' => "Erro ao excluir conta - ".$e->getMessage(),
+            ]);
+        }
+    }
+
     public function payAccount(Account $account){
         $response = Account::payAccount($account);
         $this->dispatch('show-message', [

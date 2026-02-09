@@ -186,6 +186,13 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none"><path d="M8 8a1 1 0 0 1-.707-1.707l4-4a1 1 0 0 1 1.414 0l4 4A1 1 0 0 1 16 8h-2.5v8a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V8zm12 11a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" fill="currentColor"/></svg>
                                     </button>
                                 @endif
+                                <button type="button" class="hover:underline" title="Excluir"
+                                    x-data
+                                    @click="if (confirm('Deseja realmente excluir esta conta?')) { $wire.deleteAccount({{ $account }}) }"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="size-4">
+                                    <path d="M10 11v6m4-6v6M4 7h16M6 7h12v11a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3zm3-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2H9z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
                             @else
                                 <button type="button" class="hover:underline" title="Estornar"
                                     x-data
