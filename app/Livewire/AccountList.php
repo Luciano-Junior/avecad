@@ -19,12 +19,15 @@ class AccountList extends Component
     public string $search = '';
     public ?string $start_date = null;
     public ?string $end_date = null;
+    public ?string $transaction_date = null;
     public $showFilters = false;
     public $filterStatus;
     public $filterCategory;
     public $filterType = '';
     public array $selectedAccounts = [];
     public $categories;
+    public Account $selectedAccount;
+    public bool $showReceivePaymentModal = false;
 
     protected $updatesQueryString = ['search'];
 
@@ -119,12 +122,13 @@ class AccountList extends Component
         }
     }
 
-    public function payAccount(Account $account){
-        $response = Account::payAccount($account);
+    public function payAccount(){
+        $response = Account::payAccount($this->selectedAccount, $this->transaction_date);
         $this->dispatch('show-message', [
             'type' => $response['status'],
             'message' => $response['message'],
         ]);
+        $this->dispatch('close-modal', 'receive-payment');
     }
 
     public function reversePayment(Account $account){
@@ -133,6 +137,12 @@ class AccountList extends Component
             'type' => $response['status'],
             'message' => $response['message'],
         ]);
+    }
+
+    public function viewReceivePayment(Account $account){
+        $this->selectedAccount = $account;
+        $this->transaction_date = null;
+        $this->dispatch('open-modal', 'receive-payment');
     }
 
     public function render()

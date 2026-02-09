@@ -174,14 +174,14 @@
                                 @if ($account->type == "R")
                                     <button type="button" class="hover:underline" title="Receber"
                                         x-data
-                                        @click="if (confirm('Deseja realmente marcar esta conta como paga?')) { $wire.payAccount({{ $account->id }}) }"
+                                        @click="$wire.viewReceivePayment({{ $account }})"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none"><path d="M20 5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1zM8 16a1 1 0 0 0-.707 1.707l4 4a1 1 0 0 0 1.414 0l4-4A1 1 0 0 0 16 16h-2.5V8a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1v8z" fill="currentColor"/></svg>                                          
                                     </button>
                                 @else
                                     <button class="hover:underline" title="Pagar"
                                         x-data
-                                        @click="if (confirm('Deseja realmente marcar esta conta como paga?')) { $wire.payAccount({{ $account->id }}) }"
+                                        @click="$wire.viewReceivePayment({{ $account }})"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none"><path d="M8 8a1 1 0 0 1-.707-1.707l4-4a1 1 0 0 1 1.414 0l4 4A1 1 0 0 1 16 8h-2.5v8a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V8zm12 11a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" fill="currentColor"/></svg>
                                     </button>
@@ -234,4 +234,7 @@
             @endif
         </div>
     </div>
+    <x-modal name="receive-payment" :show="$showReceivePaymentModal">
+        @include('account.partials.receive-payment-form')
+    </x-modal>
 </div>

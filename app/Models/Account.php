@@ -53,7 +53,7 @@ class Account extends Model
         return $amountFormat;
     }
 
-    public static function payAccount(Account $account){
+    public static function payAccount(Account $account, $transactionDate = null){
         DB::beginTransaction();
         try {
             $accountReceive = Account::findOrFail($account->id);
@@ -61,7 +61,7 @@ class Account extends Model
             $accountReceive->status = 'Pago';
             $accountReceive->save();
 
-            Transaction::registerTransaction($accountReceive);
+            Transaction::registerTransaction($accountReceive, $transactionDate);
             
             DB::commit();
 

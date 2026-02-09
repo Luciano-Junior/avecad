@@ -55,8 +55,8 @@ class Transaction extends Model
         return $amountFormat;
     }
 
-    public static function registerTransaction(Account $account){
-        return DB::transaction(function () use ($account) {
+    public static function registerTransaction(Account $account, $transactionDate = null){
+        return DB::transaction(function () use ($account, $transactionDate) {
             // Exemplo de registro. Os valores reais devem vir do contexto ou parâmetros adicionais.
             $transaction = self::create([
                 'account_id'  => $account->id,
@@ -66,7 +66,7 @@ class Transaction extends Model
                 'type'        => $account->type == 'R' ? 'E':'S',
                 'amount'      => $account->amount ?? 0,
                 'description' => $account->description ?? 'Transação automática',
-                'transaction_date' => now(),
+                'transaction_date' => $transactionDate ?? now(),
             ]);
 
             if($transaction){

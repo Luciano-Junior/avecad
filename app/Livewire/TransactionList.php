@@ -67,7 +67,7 @@ class TransactionList extends Component
         ->when($this->end_date, function($query){
             $query->where('transaction_date', '<=', $this->end_date." 00:00:00");
         })
-        ->orderBy('transaction_date', 'DESC');
+        ->orderBy('created_at', 'DESC');
     }
 
     public function export($format = 'pdf')
