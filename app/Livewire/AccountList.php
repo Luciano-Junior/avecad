@@ -93,6 +93,7 @@ class AccountList extends Component
             'totalPagar' => $totalPagar,
             'totalRecebido' => $totalPago,
         ]);
+        $pdf->setPaper('a4', 'landscape');
         return response()->streamDownload(fn () => print($pdf->stream()), $reportName);
     }
 

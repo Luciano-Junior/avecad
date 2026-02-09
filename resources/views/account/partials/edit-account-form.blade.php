@@ -55,7 +55,7 @@
             </div>
 
             <div>
-                <x-input-label for="due_date" :value="__('Data de Admissão').'*'" />
+                <x-input-label for="due_date" :value="__('Data de Vencimento').'*'" />
                 <x-text-input id="due_date" name="due_date" type="date" class="mt-1 block w-full" :value="old('due_date', $account->due_date->format('Y-m-d'))" autocomplete="admission_date" />
                 <x-input-error :messages="$errors->get('due_date')" class="mt-2" />
             </div>

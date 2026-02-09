@@ -89,6 +89,7 @@ class TransactionList extends Component
             'start_date' => $this->start_date ? Carbon::parse($this->start_date)->format("d/m/Y") : null,
             'end_date' => $this->end_date ? Carbon::parse($this->end_date)->format("d/m/Y") : null,
         ]);
+        $pdf->setPaper('a4', 'landscape');
         return response()->streamDownload(fn () => print($pdf->stream()), 'Movimentações Financeiras - AVECAD.pdf');
     }
 

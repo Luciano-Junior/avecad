@@ -10,7 +10,7 @@
                 <div>
                     <span class="text-sm text-gray-500 dark:text-gray-400">{{ $cashboxAmount->name }}</span>
                     <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90 {{ $cashboxAmount->balance < 0 ? 'text-red-800':'text-gray-800' }}">
-                    R$ {{ str_replace(".",",",$cashboxAmount->balance) }}
+                    R$ {{ number_format($totalAmount, 2, ',', '.') }}
                     </h4>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                         <br>{{$start_date ? \Carbon\Carbon::parse($start_date)->format('d/m/Y'):''}} - {{ $end_date ? \Carbon\Carbon::parse($end_date)->format('d/m/Y'):'' }}
                     </span>
                     <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90 {{ $totalAmount < 0 ? 'text-red-800':'text-gray-800' }}">
-                    R$ {{ str_replace(".",",",$totalAmount) }}
+                    R$ {{ number_format($totalAmount, 2, ',', '.') }}
                     </h4>
                 </div>
             </div>
