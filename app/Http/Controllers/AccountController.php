@@ -37,7 +37,11 @@ class AccountController extends Controller
     public function store(AccountRequest $request): RedirectResponse
     {
         try {
-            Account::create($request->validated());
+            $data = $request->validated();
+            $typeCategory = Category::find($data['category_id'])->typeCategory->name;
+            $data['type'] = ($typeCategory == "Receita" || $typeCategory == "Receitas") ? "R" : "P";
+
+            Account::create($data);
             return Redirect::route('account.index')->with('success', 'Conta criada com sucesso!');
         } catch (\Exception $ex) {
             return back()->with('error', 'Houve um erro ao cadastrar conta. '.$ex->getMessage());
@@ -79,7 +83,11 @@ class AccountController extends Controller
         try {
             $account = Account::findOrFail($id);
 
-            $account->update($request->validated());
+            $data = $request->validated();
+            $typeCategory = Category::find($data['category_id'])->typeCategory->name;
+            $data['type'] = ($typeCategory == "Receita" || $typeCategory == "Receitas") ? "R" : "P";
+
+            $account->update($data);
             $account->save();
 
             return Redirect::route('account.index')->with('success', 'Registro atualizado com sucesso!');

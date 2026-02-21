@@ -37,7 +37,7 @@
         </div>
 
         <div class="grid grid-cols-3 gap-2">
-            <div>
+            <div class="hidden">
                 <x-input-label for="type" :value="__('Type').'*'" />
                 <x-select name="type" id="type">
                     <option value="R" {{ $account->type == 'R' ? 'selected':'' }}>A receber</option>
