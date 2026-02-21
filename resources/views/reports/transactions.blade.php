@@ -100,8 +100,8 @@
                 </th>
             </tr>
             <tr style="background-color: #f0f0f0;">
-                <th>Descrição</th>
                 <th>Data</th>
+                <th>Descrição</th>
                 <th>Categoria</th>
                 <th>Tipo</th>
                 <th>Valor</th>
@@ -110,10 +110,12 @@
         <tbody>
             @foreach ($transactions as $transaction)
                 <tr>
-                    <td>{{ $transaction->description }}</td>
                     <td>{{ \Carbon\Carbon::parse($transaction->transaction_date)->format('d/m/Y') }}</td>
+                    <td>{{ $transaction->description }}</td>
                     <td>{{ $transaction->category->name }}</td>
-                    <td>{{ ($transaction->type == "S") ? "SAÍDA" : "ENTRADA" }}</td>
+                    <td style="color: {{ $transaction->type == 'S' ? '#ff0000' : '#0000ff' }};">
+                        {{ ($transaction->type == "S") ? "SAÍDA" : "ENTRADA" }}
+                    </td>
                     <td>R$ {{ number_format($transaction->amount, 2, ',', '.') }}</td>
                 </tr>
             @endforeach

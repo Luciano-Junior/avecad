@@ -41,6 +41,9 @@ class TransactionController extends Controller
         try {
             $data = $request->validated();
 
+            $typeCategory = Category::find($data['category_id'])->typeCategory->name;
+            $data['type'] = ($typeCategory == "Receita" || $typeCategory == "Receitas") ? "E" : "S";
+
             $data['user_id'] = auth()->id();
             $data['cashbox_id'] = 1;
             
@@ -97,6 +100,9 @@ class TransactionController extends Controller
 
             // Preencher com os novos dados (sem salvar ainda)
             $transaction->fill($request->validated());
+
+            $typeCategory = Category::find($transaction->category_id)->typeCategory->name;
+            $transaction->type = ($typeCategory == "Receita" || $typeCategory == "Receitas") ? "E" : "S";
 
             $newAmount = $transaction->amount;
             $newType = $transaction->type;
