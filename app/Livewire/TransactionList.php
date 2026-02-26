@@ -66,13 +66,14 @@ class TransactionList extends Component
         })
         ->when($this->end_date, function($query){
             $query->where('transaction_date', '<=', $this->end_date." 00:00:00");
-        })
-        ->orderBy('created_at', 'DESC');
+        });
     }
 
     public function export($format = 'pdf')
     {
         $transactionsQuery = $this->getFilteredTransactions(); // Aqui pega todos os dados filtrados
+
+        $transactionsQuery->orderBy('transaction_date', 'ASC');
 
         $clonedQuery = (clone $transactionsQuery);
 
@@ -111,7 +112,7 @@ class TransactionList extends Component
         $saldoTotal   = $totalEntrada - $totalSaida;
 
         return view('livewire.transaction-list')->with([
-            'transactions' => $transactionsQuery->paginate($this->perPage),
+            'transactions' => $transactionsQuery->orderBy('created_at', 'DESC')->paginate($this->perPage),
             'totalAmount' => $saldoTotal,
         ]);
     }
