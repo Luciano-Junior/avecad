@@ -99,7 +99,7 @@ class AssociateList extends Component
     public function exportarInadimplentes($format = 'pdf')
     {
         $associatesQuery = Associate::where('active', true)
-        ->whereHas('mounthlyFees', function ($query) {
+        ->whereHas('accounts', function ($query) {
             $query->where('status', '!=', 'Pago')
                 ->where('due_date', '<=', now());
         })
