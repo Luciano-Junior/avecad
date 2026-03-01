@@ -98,7 +98,8 @@ class AssociateList extends Component
     }
     public function exportarInadimplentes($format = 'pdf')
     {
-        $associatesQuery = Associate::whereHas('mounthlyFees', function ($query) {
+        $associatesQuery = Associate::where('active', true)
+        ->whereHas('mounthlyFees', function ($query) {
             $query->where('status', '!=', 'Pago')
                 ->where('due_date', '<=', now());
         })
@@ -122,7 +123,7 @@ class AssociateList extends Component
         // ->orderBy('name');
         $associatesQuery = Associate::where('active', true)
             ->whereDoesntHave('accounts', function ($query) {
-                $query->where('status', '!=', 'Pago')
+                $query->where('status', '!=', 'Pendente')
                     ->where('due_date', '<=', now())
                     ->where('category_id', 1); // Considera apenas contas do tipo mensalidade (category_id = 1)
             })
