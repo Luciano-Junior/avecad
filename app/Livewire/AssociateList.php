@@ -9,6 +9,7 @@ use App\Services\MonthlyFeesService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -121,13 +122,17 @@ class AssociateList extends Component
         //         ->where('due_date', '<=', now());
         // })
         // ->orderBy('name');
+
+        DB::enableQueryLog(); // Habilita o log de consultas para depuração
         $associatesQuery = Associate::where('active', true)
             ->whereDoesntHave('accounts', function ($query) {
-                $query->where('status', '!=', 'Pendente')
+                $query->where('status', '=', 'Pendente')
                     ->where('due_date', '<=', now())
                     ->where('category_id', 1); // Considera apenas contas do tipo mensalidade (category_id = 1)
             })
             ->orderBy('name');
+
+        dd($associatesQuery->toSql(), DB::getQueryLog()); // Exibe a consulta SQL e os bindings para depuração
 
         $reportName = "Relatório de Associados Adimplentes";
         $reportName .= ".pdf";
