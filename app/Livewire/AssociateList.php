@@ -123,7 +123,6 @@ class AssociateList extends Component
         // })
         // ->orderBy('name');
 
-        DB::enableQueryLog(); // Habilita o log de consultas para depuração
         $associatesQuery = Associate::where('active', true)
             ->whereDoesntHave('accounts', function ($query) {
                 $query->where('status', '=', 'Pendente')
@@ -131,8 +130,6 @@ class AssociateList extends Component
                     ->where('category_id', 1); // Considera apenas contas do tipo mensalidade (category_id = 1)
             })
             ->orderBy('name');
-
-        dd($associatesQuery->toSql(), DB::getQueryLog()); // Exibe a consulta SQL e os bindings para depuração
 
         $reportName = "Relatório de Associados Adimplentes";
         $reportName .= ".pdf";
