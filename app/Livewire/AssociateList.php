@@ -99,7 +99,7 @@ class AssociateList extends Component
     }
     public function exportarInadimplentes($format = 'pdf')
     {
-        $associatesQuery = Associate::where('active', true)
+        $associatesQuery = Associate::with('typeAssociate')->where('active', true)
         ->whereHas('accounts', function ($query) {
             $query->where('status', '!=', 'Pago')
                 ->where('due_date', '<=', now());
@@ -117,13 +117,7 @@ class AssociateList extends Component
 
     public function exportarAdimplentes($format = 'pdf')
     {
-        // $associatesQuery = Associate::whereHas('mounthlyFees', function ($query) {
-        //     $query->where('status', '=', 'Pago')
-        //         ->where('due_date', '<=', now());
-        // })
-        // ->orderBy('name');
-
-        $associatesQuery = Associate::where('active', true)
+        $associatesQuery = Associate::with('typeAssociate')->where('active', true)
             ->whereDoesntHave('accounts', function ($query) {
                 $query->where('status', '=', 'Pendente')
                     ->where('due_date', '<=', now())
