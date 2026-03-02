@@ -81,6 +81,7 @@
                 </th>
                 <th style="border:none"></th>
                 <th style="border:none"></th>
+                <th style="border:none"></th>
                 <th style="text-align: right; font-size: 12px; border: none; font-weight: normal;" colspan="1">
                     Emitido em:
                     {{ \Carbon\Carbon::now()->format('d/m/Y') }}
@@ -89,12 +90,12 @@
 
             <!-- Linha do título centralizado -->
             <tr>
-                <th colspan="5" style="text-align: center; font-size: 18px; font-weight: bold; border: none; padding-bottom: 10px;">
+                <th colspan="6" style="text-align: center; font-size: 18px; font-weight: bold; border: none; padding-bottom: 10px;">
                     Relatório de Associados Adimplentes
                 </th>
             </tr>
             <tr style="background-color: #f0f0f0;">
-                {{-- <th></th> --}}
+                <th></th>
                 <th colspan="2">Associado</th>
                 <th>Apelido</th>
                 <th>Contato</th>
@@ -105,7 +106,7 @@
         <tbody>
             @foreach ($associates as $associate)
                 <tr>
-                    {{-- <th>{{ $loop->iteration }}</th> --}}
+                    <th>{{ $loop->iteration }}</th>
                     <td colspan="2">{{ $associate->name }}</td>
                     <td>{{ $associate->surname }}</td>
                     <td>{{ $associate->contact }}</td>
