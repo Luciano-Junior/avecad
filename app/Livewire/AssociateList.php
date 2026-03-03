@@ -45,7 +45,7 @@ class AssociateList extends Component
     public function mount()
     {
         $this->start_month = now()->format('Y-m');
-        $this->perPage = 10;
+        $this->perPage = 100;
         $this->birthdayPeoples = $this->getBirthdayPeoples();
         $this->showModalAniversariantes = true;
     }

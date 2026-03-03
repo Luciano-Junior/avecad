@@ -97,7 +97,7 @@ class TransactionList extends Component
     public function mount(){
         $amount = CashBox::find(1);
         $this->cashboxAmount = $amount;
-        $this->perPage = 10;
+        $this->perPage = 100;
         $this->categories = Category::all();
     }
 

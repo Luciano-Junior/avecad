@@ -102,7 +102,7 @@ class AccountList extends Component
 
     public function mount()
     {
-        $this->perPage = 10;
+        $this->perPage = 100;
         $this->categories = Category::all();
     }
 
