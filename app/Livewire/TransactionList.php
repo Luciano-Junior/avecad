@@ -95,8 +95,7 @@ class TransactionList extends Component
     }
 
     public function mount(){
-        $amount = CashBox::find(1);
-        $this->cashboxAmount = $amount;
+        $this->getCashBoxAmount();
         $this->perPage = 100;
         $this->categories = Category::all();
     }
@@ -115,5 +114,28 @@ class TransactionList extends Component
             'transactions' => $transactionsQuery->orderBy('created_at', 'DESC')->paginate($this->perPage),
             'totalAmount' => $saldoTotal,
         ]);
+    }
+
+    public function deleteTransaction(Transaction $transaction)
+    {
+        if($transaction->delete()){
+            $cashBox = CashBox::findOrFail($transaction->cashbox_id);
+            if($transaction->type == "E"){
+                $cashBox->decrementBalance($transaction->amount);
+            }else{
+                $cashBox->incrementBalance($transaction->amount);
+            }
+            $this->getCashBoxAmount();
+            $this->dispatch('show-message', [
+                'type' => "success",
+                'message' => "Transação excluída com sucesso",
+            ]);
+        }
+    }
+
+    private function getCashBoxAmount()
+    {
+        $amount = CashBox::find(1);
+        $this->cashboxAmount = $amount;
     }
 }

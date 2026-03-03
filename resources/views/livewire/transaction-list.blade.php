@@ -10,7 +10,7 @@
                 <div>
                     <span class="text-sm text-gray-500 dark:text-gray-400">{{ $cashboxAmount->name }}</span>
                     <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90 {{ $cashboxAmount->balance < 0 ? 'text-red-800':'text-gray-800' }}">
-                    R$ {{ number_format($totalAmount, 2, ',', '.') }}
+                    R$ {{ number_format($cashboxAmount->balance, 2, ',', '.') }}
                     </h4>
                 </div>
             </div>
@@ -191,6 +191,14 @@
                                         <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
                                     </svg>
                                 </x-nav-link-table>
+
+                                <button type="button" class="hover:underline" title="Excluir"
+                                    x-data
+                                    @click="if (confirm('Deseja realmente excluir esta transação?')) { $wire.deleteTransaction({{ $transaction }}) }"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="size-4">
+                                    <path d="M10 11v6m4-6v6M4 7h16M6 7h12v11a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3zm3-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2H9z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
                             @endif
                             <x-nav-link-table href="#" :active="true" class="hover:underline hidden" title="Estornar">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
