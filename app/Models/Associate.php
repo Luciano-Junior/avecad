@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -98,5 +100,12 @@ class Associate extends Model
 
     public function mounthlyFees(): HasMany {
         return $this->hasMany(Account::class)->where("category_id",1);
+    }
+
+    protected function idade(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => Carbon::parse($attributes['birth_date'])->age,
+        );
     }
 }

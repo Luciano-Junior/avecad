@@ -148,6 +148,11 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
+                            Idade
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
                             Categoria
                         </div>
                     </th>
@@ -195,6 +200,9 @@
                         </td>
                         <td class="px-6 py-4">
                             {{$associate->data_nascimento}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $associate->idade }}
                         </td>
                         <td class="px-6 py-4">
                             {{$associate->category->name??''}}
