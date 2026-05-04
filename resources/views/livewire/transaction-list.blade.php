@@ -160,7 +160,7 @@
                                 class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
                             />
                         </td>
-                        <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <th class="px-6 py-4 font-medium text-gray-900 dark:text-white">
                             {{$transaction->description}}
                         </th>
                         <td class="px-6 py-4">
