@@ -111,7 +111,7 @@ class TransactionList extends Component
         $saldoTotal   = $totalEntrada - $totalSaida;
 
         return view('livewire.transaction-list')->with([
-            'transactions' => $transactionsQuery->orderBy('created_at', 'DESC')->paginate($this->perPage),
+            'transactions' => $transactionsQuery->orderBy('transaction_date', 'DESC')->paginate($this->perPage),
             'totalAmount' => $saldoTotal,
         ]);
     }
