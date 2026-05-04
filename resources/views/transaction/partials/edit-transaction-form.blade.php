@@ -9,6 +9,7 @@
     <form method="post" action="{{ route('transaction.update', $transaction->id) }}" class="mt-6 space-y-6 px-3">
         @csrf
         @method('put')
+        {{ $transaction->id }}
         <div class="grid grid-cols-3 gap-2">
             <div class="col-span-2">
                 <x-input-label for="description" :value="__('Description').'*'" />
@@ -16,22 +17,29 @@
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="category" :value="__('Category').'*'" />
-                <x-select name="category_id" id="category">
-                    <option value="">Selecione uma categoria</option>
+                @if (!$transaction->account_id)
+                    <x-input-label for="category" :value="__('Category').'*'" />
+                    <x-select name="category_id" id="category">
+                        <option value="">Selecione uma categoria</option>
 
-                    @foreach ($categories as $typeName => $groupedCategories)
-                        <optgroup label="{{ $typeName }}">
-                            @foreach ($groupedCategories as $category)
-                                <option value="{{ $category->id }}"
-                                    {{ $transaction->category_id == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </optgroup>
-                    @endforeach
-                </x-select>
-                <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+                        @foreach ($categories as $typeName => $groupedCategories)
+                            <optgroup label="{{ $typeName }}">
+                                @foreach ($groupedCategories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ $transaction->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </optgroup>
+                        @endforeach
+                    </x-select>
+                    @else
+                        <x-input-label for="category" :value="__('Category').'*'" />
+                        <x-text-input id="category_display" name="category_display" type="text" :value="$transaction->category->name" class="mt-1 block w-full" readonly />
+                        <x-text-input id="category" name="category_id" type="text" :value="$transaction->category_id" class="hidden"/>
+                    @endif
+                    <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+                
             </div>
         </div>
 
@@ -46,10 +54,17 @@
             </div>
             <div x-data="currencyMask('')">
                 <x-input-label for="amount" :value="__('Amount').'*'" />
-                <x-text-input id="amount" name="amount" type="text" class="mt-1 block w-full" x-model="amount" :value="old('amount', $transaction->amount)"
-                x-data="currencyMask('{{ old('amount', $transaction->amount) }}')" 
-                x-on:input="formatCurrency()"
-                placeholder="100,00"/>
+                @if (!$transaction->account_id)    
+                    <x-text-input id="amount" name="amount" type="text" class="mt-1 block w-full" x-model="amount" :value="old('amount', $transaction->amount)"
+                    x-data="currencyMask('{{ old('amount', $transaction->amount) }}')" 
+                    x-on:input="formatCurrency()"
+                    placeholder="100,00"/>
+                @else
+                    <x-text-input id="amount" name="amount" type="text" class="mt-1 block w-full" x-model="amount" :value="old('amount', $transaction->amount)"
+                    x-data="currencyMask('{{ old('amount', $transaction->amount) }}')" 
+                    x-on:input="formatCurrency()"
+                    placeholder="100,00" readonly/>
+                @endif
                 <x-input-error :messages="$errors->get('amount')" class="mt-2" />
             </div>
 

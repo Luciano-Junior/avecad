@@ -93,7 +93,6 @@ class TransactionController extends Controller
         DB::beginTransaction();
         try {
             $transaction = Transaction::findOrFail($id);
-
             // Valores antigos
             $oldAmount = $transaction->getOriginal('amount');
             $oldType = $transaction->getOriginal('type');
